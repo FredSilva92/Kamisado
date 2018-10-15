@@ -9,11 +9,16 @@ public class Player {
         this.playerNumber = playerNumber;
         this.grid = grid;
         this.name = name;
+        pawns = new Pawn[8];
         createPawns();
     }
 
-    public void move(){
-        //POR DESENVOLVER!!!!
+    public void move(int squaresMoved, int dir){
+        if(playerNumber == 1){
+
+        }else{
+
+        }
     }
 
     private void createPawns(){

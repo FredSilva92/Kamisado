@@ -1,9 +1,15 @@
+import org.academiadecodigo.simplegraphics.graphics.Rectangle;
+
 public class Grid {
 
     private int cols;
     private int rows;
     Square[][] squares;
-    public final int CELL_SIZE = 10;
+
+    public final int PADDING = 10;
+    public final int CELL_SIZE = 40;
+
+    private Rectangle grid;
 
     public Grid(int cols, int rows){
         this.cols = cols;
@@ -11,6 +17,10 @@ public class Grid {
         squares = new Square[cols][rows];
         squares = createSquares(squares);
         showSquares();
+
+        grid = new Rectangle(PADDING, PADDING, cols * CELL_SIZE, rows * CELL_SIZE);
+
+        grid.draw();
     }
 
     public int getRows() {
