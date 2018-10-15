@@ -19,16 +19,27 @@ public class MoveEvents implements MouseHandler {
         Mouse m = new Mouse(this);
 
         m.addEventListener(MouseEventType.MOUSE_CLICKED);
-        m.addEventListener(MouseEventType.MOUSE_MOVED);
+        //m.addEventListener(MouseEventType.MOUSE_MOVED);
 
 
     }
 
 
 
+    private boolean firstClick = true;
+
+
     @Override
     public void mouseClicked(MouseEvent mouseEvent) {
         System.out.println("clicked");
+        if(firstClick){
+            System.out.println("first click\n");
+            firstClick = false;
+        }else{
+            System.out.println("second click\n");
+            firstClick = true;
+        }
+
     }
 
     @Override

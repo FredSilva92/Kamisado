@@ -1,4 +1,6 @@
 import org.academiadecodigo.simplegraphics.graphics.Rectangle;
+import org.academiadecodigo.simplegraphics.pictures.Picture;
+import org.academiadecodigo.simplegraphics.graphics.Canvas;
 
 public class Grid {
 
@@ -7,9 +9,10 @@ public class Grid {
     Square[][] squares;
 
     public final int PADDING = 10;
-    public final int CELL_SIZE = 40;
+    public final int CELL_SIZE = 90;
 
     private Rectangle grid;
+    private Picture board;
 
     public Grid(int cols, int rows){
         this.cols = cols;
@@ -19,8 +22,10 @@ public class Grid {
         showSquares();
 
         grid = new Rectangle(PADDING, PADDING, cols * CELL_SIZE, rows * CELL_SIZE);
+        board = new Picture(PADDING, PADDING, "resources/cut_board_814x816.png");
 
-        grid.draw();
+        //grid.draw();
+        board.draw();
     }
 
     public int getRows() {
