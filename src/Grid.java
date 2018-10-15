@@ -3,6 +3,7 @@ public class Grid {
     private int cols;
     private int rows;
     Square[][] squares;
+    public final int CELL_SIZE = 10;
 
     public Grid(int cols, int rows){
         this.cols = cols;
