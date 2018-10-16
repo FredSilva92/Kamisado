@@ -6,11 +6,13 @@ public class Game {
     Player player2;
     Grid grid;
     int currentPlayer = 1;
+    Picture[] blackPawnPictures;
 
     Game() {
         grid = new Grid(8, 8);
-        player1 = new Player("José", grid, 1);
-        player2 = new Player("Alberto", grid, 2);
+        player1 = new Player("José", grid, 1, this);
+        player2 = new Player("Alberto", grid, 2, this);
+        blackPawnPictures = new Picture[8];
         drawBlackPawns();
 
 
@@ -54,9 +56,6 @@ public class Game {
         Picture bBrown = new Picture(grid.PADDING + 90 * 7, grid.PADDING, "resources/black_brown.png");
         bBrown.grow(-10, -10);
         bBrown.draw();
-
-        bOrange.translate(0, 90 * 6);
-        bBlue.translate(grid.CELL_SIZE * 6, 90 * 6);
     }
 
     public void translate(int cols, int rows, Picture pic){
