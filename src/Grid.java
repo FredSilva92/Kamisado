@@ -5,7 +5,7 @@ public class Grid {
 
     private int cols;
     private int rows;
-    Square[][] squares;
+    private Square[][] squares;
 
     public final int PADDING = 10;
     public final int CELL_SIZE = 90;
@@ -32,6 +32,13 @@ public class Grid {
         return rows;
     }
 
+    public int getCols() {
+        return cols;
+    }
+
+    public Square[][] getSquares() {
+        return squares;
+    }
 
     private Square[][] createSquares(Square[][] tempSquares){
         for(int i = 0; i < rows; i++){

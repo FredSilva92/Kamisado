@@ -5,6 +5,7 @@ public class Game {
     Player player1;
     Player player2;
     Grid grid;
+    int currentPlayer = 1;
 
     Game() {
         grid = new Grid(8, 8);
@@ -62,4 +63,11 @@ public class Game {
 
     }
 
+    public int getCurrentPlayer() {
+        return currentPlayer;
+    }
+
+    public void setCurrentPlayer(int currentPlayer) {
+        this.currentPlayer = currentPlayer;
+    }
 }

@@ -13,7 +13,15 @@ public class Player {
         createPawns();
     }
 
-    public void move(int squaresMoved, int dir){
+    public boolean firstMove(int col1, int row1, int col2, int row2){
+
+
+
+        return true;
+
+    }
+
+    public void move(int col, int row){
         if(playerNumber == 1){
 
         }else{
@@ -34,6 +42,27 @@ public class Player {
             }
 
         }
+    }
+
+    public boolean[][] pawnPossibleSquares(boolean[][] tempPossibleSquares, Pawn pawn){
+        int jAbs;
+        boolean iTest;
+        boolean jTest;
+
+        int pRow = pawn.getPosition().getRow();
+        int pCol = pawn.getPosition().getCol();
+
+        for(int i = 0; i < grid.getRows(); i++){
+            for(int j = 0; j < grid.getCols(); j++){
+                jAbs = Math.abs(j - pCol);
+                iTest = i > pRow;
+                jTest = (j == pCol || jAbs == i - pRow);
+                if(iTest && jTest && !grid.getSquares()[j][i].isOccupied()){
+                    tempPossibleSquares[j][i] = true;
+                }
+            }
+        }
+        return tempPossibleSquares;
     }
 
 }

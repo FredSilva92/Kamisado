@@ -7,4 +7,8 @@ public class Pawn {
         this.color = color;
         position = new Position(col, row);
     }
+
+    public Position getPosition() {
+        return position;
+    }
 }

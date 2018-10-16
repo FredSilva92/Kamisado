@@ -9,7 +9,7 @@ public class MoveEvents implements MouseHandler {
 
     Game game;
 
-    public MoveEvents(Game game){
+    public MoveEvents(Game game) {
         this.game = game;
     }
 
@@ -24,7 +24,6 @@ public class MoveEvents implements MouseHandler {
     }
 
 
-
     private boolean firstClick = true;
     private int Xi;
     private int Yi;
@@ -33,24 +32,48 @@ public class MoveEvents implements MouseHandler {
     private int Xd;
     private int Yd;
     private int adjust = 24;
+    private boolean movable;
+    private boolean firstMove = true;
 
 
     @Override
     public void mouseClicked(MouseEvent mouseEvent) {
-        System.out.println("clicked");
-        if(firstClick){
-            Xi = (int)(mouseEvent.getX() - game.grid.PADDING)/game.grid.CELL_SIZE;
-            Yi = (int)(mouseEvent.getY() - game.grid.PADDING - adjust)/game.grid.CELL_SIZE;
-            System.out.println("\nFirst click. Xi = " + Xi + "; Yi = " + Yi);
-            firstClick = false;
-        }else{
-            Xf = (int)(mouseEvent.getX() - game.grid.PADDING)/game.grid.CELL_SIZE;
-            Yf = (int)(mouseEvent.getY() - game.grid.PADDING - adjust)/game.grid.CELL_SIZE;
-            Xd = Xf - Xi;
-            Yd = Yf - Yi;
-            System.out.println("\nSecond click. Xf = " + Xf + "; Yf = " + Yf);
-            System.out.println(Xd + " " + Yd);
-            firstClick = true;
+
+        if (firstMove) {
+            if (firstClick) {
+                System.out.println("1");
+                Xi = (int) (mouseEvent.getX() - game.grid.PADDING) / game.grid.CELL_SIZE;
+                Yi = (int) (mouseEvent.getY() - game.grid.PADDING - adjust) / game.grid.CELL_SIZE;
+                if (Yi == 0) {
+                    System.out.println("2");
+                    firstClick = false;
+                }
+
+
+            } else {
+                System.out.println("3");
+                Xf = (int) (mouseEvent.getX() - game.grid.PADDING) / game.grid.CELL_SIZE;
+                Yf = (int) (mouseEvent.getY() - game.grid.PADDING - adjust) / game.grid.CELL_SIZE;
+                Xd = Xf - Xi;
+                Yd = Yf - Yi;
+
+                game.player1.firstMove(Xi, Yi, Xi, Xf);
+
+                firstClick = true;
+
+                firstMove = false;
+            }
+        } else {
+            System.out.println("4");
+            Xi = (int) (mouseEvent.getX() - game.grid.PADDING) / game.grid.CELL_SIZE;
+            Yi = (int) (mouseEvent.getY() - game.grid.PADDING - adjust) / game.grid.CELL_SIZE;
+            if (game.currentPlayer == 1) {
+                game.player1.move(Xi, Yi);
+                game.setCurrentPlayer(2);
+            } else {
+                game.player2.move(Xi, Yi);
+                game.setCurrentPlayer(1);
+            }
         }
 
     }
