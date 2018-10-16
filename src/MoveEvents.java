@@ -19,7 +19,6 @@ public class MoveEvents implements MouseHandler {
         Mouse m = new Mouse(this);
 
         m.addEventListener(MouseEventType.MOUSE_CLICKED);
-        //m.addEventListener(MouseEventType.MOUSE_MOVED);
 
 
     }
@@ -27,16 +26,29 @@ public class MoveEvents implements MouseHandler {
 
 
     private boolean firstClick = true;
+    private double Xi;
+    private double Yi;
+    private double Xf;
+    private double Yf;
+    private int Xd;
+    private int Yd;
 
 
     @Override
     public void mouseClicked(MouseEvent mouseEvent) {
         System.out.println("clicked");
         if(firstClick){
-            System.out.println("first click\n");
+            Xi = (mouseEvent.getX() - game.grid.PADDING)/game.grid.CELL_SIZE;
+            Yi = (mouseEvent.getY() - game.grid.PADDING)/game.grid.CELL_SIZE;
+            System.out.println("\nFirst click. Xi = " + Xi + "; Yi = " + Yi);
             firstClick = false;
         }else{
-            System.out.println("second click\n");
+            Xf = (mouseEvent.getX() - game.grid.PADDING)/game.grid.CELL_SIZE;
+            Yf = (mouseEvent.getY() - game.grid.PADDING)/game.grid.CELL_SIZE;
+            Xd = (int)(Xf - Xi);
+            Yd = (int)(Yf - Yi);
+            System.out.println("\nSecond click. Xf = " + Xf + "; Yf = " + Yf);
+            System.out.println(Xd + " " + Yd);
             firstClick = true;
         }
 

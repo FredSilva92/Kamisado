@@ -1,6 +1,5 @@
 import org.academiadecodigo.simplegraphics.graphics.Rectangle;
 import org.academiadecodigo.simplegraphics.pictures.Picture;
-import org.academiadecodigo.simplegraphics.graphics.Canvas;
 
 public class Grid {
 
@@ -25,6 +24,7 @@ public class Grid {
         board = new Picture(PADDING, PADDING, "resources/cut_board_814x816.png");
 
         //grid.draw();
+
         board.draw();
     }
 
@@ -81,4 +81,5 @@ public class Grid {
             System.out.println("\n");
         }
     }
+
 }
