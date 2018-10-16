@@ -26,27 +26,28 @@ public class MoveEvents implements MouseHandler {
 
 
     private boolean firstClick = true;
-    private double Xi;
-    private double Yi;
-    private double Xf;
-    private double Yf;
+    private int Xi;
+    private int Yi;
+    private int Xf;
+    private int Yf;
     private int Xd;
     private int Yd;
+    private int adjust = 24;
 
 
     @Override
     public void mouseClicked(MouseEvent mouseEvent) {
         System.out.println("clicked");
         if(firstClick){
-            Xi = (mouseEvent.getX() - game.grid.PADDING)/game.grid.CELL_SIZE;
-            Yi = (mouseEvent.getY() - game.grid.PADDING)/game.grid.CELL_SIZE;
+            Xi = (int)(mouseEvent.getX() - game.grid.PADDING)/game.grid.CELL_SIZE;
+            Yi = (int)(mouseEvent.getY() - game.grid.PADDING - adjust)/game.grid.CELL_SIZE;
             System.out.println("\nFirst click. Xi = " + Xi + "; Yi = " + Yi);
             firstClick = false;
         }else{
-            Xf = (mouseEvent.getX() - game.grid.PADDING)/game.grid.CELL_SIZE;
-            Yf = (mouseEvent.getY() - game.grid.PADDING)/game.grid.CELL_SIZE;
-            Xd = (int)(Xf - Xi);
-            Yd = (int)(Yf - Yi);
+            Xf = (int)(mouseEvent.getX() - game.grid.PADDING)/game.grid.CELL_SIZE;
+            Yf = (int)(mouseEvent.getY() - game.grid.PADDING - adjust)/game.grid.CELL_SIZE;
+            Xd = Xf - Xi;
+            Yd = Yf - Yi;
             System.out.println("\nSecond click. Xf = " + Xf + "; Yf = " + Yf);
             System.out.println(Xd + " " + Yd);
             firstClick = true;
