@@ -39,11 +39,17 @@ public class MoveEvents implements MouseHandler {
     @Override
     public void mouseClicked(MouseEvent mouseEvent) {
 
+        moveClick(mouseEvent.getX(), mouseEvent.getY());
+
+    }
+
+
+    private void moveClick(double x, double y){
         if (!firstMoveCheck) {
             if (firstClick) {
                 System.out.println("1");
-                Xi = (int) (mouseEvent.getX() - game.grid.PADDING) / game.grid.CELL_SIZE;
-                Yi = (int) (mouseEvent.getY() - game.grid.PADDING - adjust) / game.grid.CELL_SIZE;
+                Xi = (int) (x - game.grid.PADDING) / game.grid.CELL_SIZE;
+                Yi = (int) (y - game.grid.PADDING - adjust) / game.grid.CELL_SIZE;
                 if (Yi == 0) {
                     System.out.println("2");
                     firstClick = false;
@@ -52,8 +58,8 @@ public class MoveEvents implements MouseHandler {
 
             } else {
                 System.out.println("3");
-                Xf = (int) (mouseEvent.getX() - game.grid.PADDING) / game.grid.CELL_SIZE;
-                Yf = (int) (mouseEvent.getY() - game.grid.PADDING - adjust) / game.grid.CELL_SIZE;
+                Xf = (int) (x - game.grid.PADDING) / game.grid.CELL_SIZE;
+                Yf = (int) (y - game.grid.PADDING - adjust) / game.grid.CELL_SIZE;
                 Xd = Xf - Xi;
                 Yd = Yf - Yi;
 
@@ -64,8 +70,8 @@ public class MoveEvents implements MouseHandler {
             }
         } else {
             System.out.println("4");
-            Xi = (int) (mouseEvent.getX() - game.grid.PADDING) / game.grid.CELL_SIZE;
-            Yi = (int) (mouseEvent.getY() - game.grid.PADDING - adjust) / game.grid.CELL_SIZE;
+            Xi = (int) (x - game.grid.PADDING) / game.grid.CELL_SIZE;
+            Yi = (int) (y - game.grid.PADDING - adjust) / game.grid.CELL_SIZE;
             if (game.currentPlayer == 1) {
                 game.player1.move(Xi, Yi);
                 game.setCurrentPlayer(2);
@@ -74,7 +80,6 @@ public class MoveEvents implements MouseHandler {
                 game.setCurrentPlayer(1);
             }
         }
-
     }
 
     @Override
