@@ -5,11 +5,14 @@ public class Game {
     Player player1;
     Player player2;
     Grid grid;
+    int currentPlayer = 1;
+    Picture[] blackPawnPictures;
 
     Game() {
         grid = new Grid(8, 8);
-        player1 = new Player("José", grid, 1);
-        player2 = new Player("Alberto", grid, 2);
+        player1 = new Player("José", grid, 1, this);
+        player2 = new Player("Alberto", grid, 2, this);
+        blackPawnPictures = new Picture[8];
         drawBlackPawns();
 
 
@@ -22,44 +25,48 @@ public class Game {
 
 
     private void drawBlackPawns() {
-        Picture bOrange = new Picture(grid.PADDING, grid.PADDING, "resources/black_orange.png");
-        bOrange.grow(-10, -10);
-        bOrange.draw();
+        blackPawnPictures[0] = new Picture(grid.PADDING, grid.PADDING, "resources/black_orange.png");
+        blackPawnPictures[0].grow(-10, -10);
+        blackPawnPictures[0].draw();
 
-        Picture bBlue = new Picture(grid.PADDING + 90, grid.PADDING, "resources/black_blue.png");
-        bBlue.grow(-10, -10);
-        bBlue.draw();
+        blackPawnPictures[1] = new Picture(grid.PADDING + 90, grid.PADDING, "resources/black_blue.png");
+        blackPawnPictures[1].grow(-10, -10);
+        blackPawnPictures[1].draw();
 
-        Picture bPurple = new Picture(grid.PADDING + 90 * 2, grid.PADDING, "resources/black_purple.png");
-        bPurple.grow(-10, -10);
-        bPurple.draw();
+        blackPawnPictures[2] = new Picture(grid.PADDING + 90 * 2, grid.PADDING, "resources/black_purple.png");
+        blackPawnPictures[2].grow(-10, -10);
+        blackPawnPictures[2].draw();
 
-        Picture bPink = new Picture(grid.PADDING + 90 * 3, grid.PADDING, "resources/black_pink.png");
-        bPink.grow(-10, -10);
-        bPink.draw();
+        blackPawnPictures[3] = new Picture(grid.PADDING + 90 * 3, grid.PADDING, "resources/black_pink.png");
+        blackPawnPictures[3].grow(-10, -10);
+        blackPawnPictures[3].draw();
 
-        Picture bYellow = new Picture(grid.PADDING + 90 * 4, grid.PADDING, "resources/black_yellow.png");
-        bYellow.grow(-10, -10);
-        bYellow.draw();
+        blackPawnPictures[4] = new Picture(grid.PADDING + 90 * 4, grid.PADDING, "resources/black_yellow.png");
+        blackPawnPictures[4].grow(-10, -10);
+        blackPawnPictures[4].draw();
 
-        Picture bRed = new Picture(grid.PADDING + 90 * 5, grid.PADDING, "resources/black_red.png");
-        bRed.grow(-10, -10);
-        bRed.draw();
+        blackPawnPictures[5] = new Picture(grid.PADDING + 90 * 5, grid.PADDING, "resources/black_red.png");
+        blackPawnPictures[5].grow(-10, -10);
+        blackPawnPictures[5].draw();
 
-        Picture bGreen = new Picture(grid.PADDING + 90 * 6, grid.PADDING, "resources/black_green.png");
-        bGreen.grow(-10, -10);
-        bGreen.draw();
+        blackPawnPictures[6] = new Picture(grid.PADDING + 90 * 6, grid.PADDING, "resources/black_green.png");
+        blackPawnPictures[6].grow(-10, -10);
+        blackPawnPictures[6].draw();
 
-        Picture bBrown = new Picture(grid.PADDING + 90 * 7, grid.PADDING, "resources/black_brown.png");
-        bBrown.grow(-10, -10);
-        bBrown.draw();
-
-        bOrange.translate(0, 90 * 6);
-        bBlue.translate(grid.CELL_SIZE * 6, 90 * 6);
+        blackPawnPictures[7] = new Picture(grid.PADDING + 90 * 7, grid.PADDING, "resources/black_brown.png");
+        blackPawnPictures[7].grow(-10, -10);
+        blackPawnPictures[7].draw();
     }
 
     public void translate(int cols, int rows, Picture pic){
 
     }
 
+    public int getCurrentPlayer() {
+        return currentPlayer;
+    }
+
+    public void setCurrentPlayer(int currentPlayer) {
+        this.currentPlayer = currentPlayer;
+    }
 }

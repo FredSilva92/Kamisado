@@ -4,16 +4,34 @@ public class Player {
     private Pawn[] pawns;
     private int playerNumber;
     private Grid grid;
+    private boolean[][] possibleSquares;
+    private Game game;
 
-    public Player(String name, Grid grid, int playerNumber){
+    public Player(String name, Grid grid, int playerNumber, Game game){
         this.playerNumber = playerNumber;
         this.grid = grid;
         this.name = name;
         pawns = new Pawn[8];
         createPawns();
+        possibleSquares = new boolean[grid.getCols()][grid.getRows()];
+        this.game = game;
     }
 
-    public void move(int squaresMoved, int dir){
+    public boolean firstMove(int col1, int row1, int col2, int row2){
+
+        pawnPossibleSquares(pawns[col1]);
+
+        if(row2 < 7 && possibleSquares[col2][row2]){
+            pawns[col1].getPosition().setCol(col2);
+            pawns[col1].getPosition().setRow(row2);
+            game.blackPawnPictures[col1].translate((col2-col1)*90, (row2-row1)*90);
+            return true;
+        }
+        return false;
+
+    }
+
+    public void move(int col, int row){
         if(playerNumber == 1){
 
         }else{
@@ -34,6 +52,29 @@ public class Player {
             }
 
         }
+    }
+
+    public void pawnPossibleSquares(Pawn pawn){
+        int jAbs;
+        boolean iTest;
+        boolean jTest;
+
+        int pRow = pawn.getPosition().getRow();
+        int pCol = pawn.getPosition().getCol();
+
+        for(int i = 0; i < grid.getRows(); i++){
+            for(int j = 0; j < grid.getCols(); j++){
+                jAbs = Math.abs(j - pCol);
+                iTest = i > pRow;
+                jTest = (j == pCol || jAbs == i - pRow);
+                if(iTest && jTest && !grid.getSquares()[j][i].isOccupied()){
+                    possibleSquares[j][i] = true;
+                }else{
+                    possibleSquares[j][i] = false;
+                }
+            }
+        }
+
     }
 
 }
