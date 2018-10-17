@@ -6,6 +6,7 @@ public class Player {
     private Grid grid;
     private boolean[][] possibleSquares;
     private Game game;
+    private Pawn currentPawn;
 
     public Player(String name, Grid grid, int playerNumber, Game game){
         this.playerNumber = playerNumber;
@@ -25,9 +26,11 @@ public class Player {
             pawns[col1].getPosition().setCol(col2);
             pawns[col1].getPosition().setRow(row2);
             game.blackPawnPictures[col1].translate((col2-col1)*90, (row2-row1)*90);
+
             return true;
         }
         return false;
+
 
     }
 
@@ -37,6 +40,24 @@ public class Player {
         }else{
 
         }
+    }
+
+    public void setCurrentPawn(int x, int y){
+
+        Color color = grid.getSquares()[x][y].getColor();
+
+        for(int i = 0; i<pawns.length; i++){
+            if(pawns[i].getColor()==color){
+                currentPawn = pawns[i];
+                pawns[i].getPosition().getCol();
+                pawns[i].getPosition().getRow();
+            }
+        }
+
+    }
+
+    public Pawn getCurrentPawn() {
+        return currentPawn;
     }
 
     private void createPawns(){

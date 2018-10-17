@@ -45,6 +45,7 @@ public class MoveEvents implements MouseHandler {
 
 
     private void moveClick(double x, double y){
+
         if (!firstMoveCheck) {
             if (firstClick) {
                 System.out.println("1");
@@ -60,12 +61,20 @@ public class MoveEvents implements MouseHandler {
                 System.out.println("3");
                 Xf = (int) (x - game.grid.PADDING) / game.grid.CELL_SIZE;
                 Yf = (int) (y - game.grid.PADDING - adjust) / game.grid.CELL_SIZE;
-                Xd = Xf - Xi;
-                Yd = Yf - Yi;
+
 
                 firstMoveCheck = game.player1.firstMove(Xi, Yi, Xf, Yf);
 
+                if(firstMoveCheck){
+                    game.player2.setCurrentPawn(Xf, Yf);
+                    System.out.println(game.player2.getCurrentPawn().getColor());
+
+                }
+
+
                 firstClick = true;
+
+                game.setCurrentPlayer(2);
 
             }
         } else {

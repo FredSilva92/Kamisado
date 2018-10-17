@@ -11,4 +11,8 @@ public class Pawn {
     public Position getPosition() {
         return position;
     }
+
+    public Color getColor() {
+        return color;
+    }
 }
