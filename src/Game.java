@@ -6,15 +6,18 @@ public class Game {
     Player player2;
     Grid grid;
     int currentPlayer = 1;
+
     Picture[] blackPawnPictures;
+    Picture[] whitePawnPictures;
 
     Game() {
         grid = new Grid(8, 8);
         player1 = new Player("José", grid, 1, this);
         player2 = new Player("Alberto", grid, 2, this);
         blackPawnPictures = new Picture[8];
+        whitePawnPictures = new Picture[8];
         drawBlackPawns();
-
+        drawWhitePawns();
 
     }
 
@@ -57,6 +60,43 @@ public class Game {
         blackPawnPictures[7].grow(-10, -10);
         blackPawnPictures[7].draw();
     }
+
+
+    private void drawWhitePawns() {
+        whitePawnPictures[0] = new Picture(grid.PADDING + 90 * 7, grid.PADDING + 90 * 7, "resources/white_orange.png");
+        whitePawnPictures[0].grow(-10, -10);
+        whitePawnPictures[0].draw();
+
+        whitePawnPictures[1] = new Picture(grid.PADDING + 90 * 6, grid.PADDING + 90 * 7, "resources/white_blue.png");
+        whitePawnPictures[1].grow(-10, -10);
+        whitePawnPictures[1].draw();
+
+        whitePawnPictures[2] = new Picture(grid.PADDING + 90 * 5, grid.PADDING + 90 * 7,"resources/white_purple.png");
+        whitePawnPictures[2].grow(-10, -10);
+        whitePawnPictures[2].draw();
+
+        whitePawnPictures[3] = new Picture(grid.PADDING + 90 * 4, grid.PADDING + 90 * 7, "resources/white_pink.png");
+        whitePawnPictures[3].grow(-10, -10);
+        whitePawnPictures[3].draw();
+
+        whitePawnPictures[4] = new Picture(grid.PADDING + 90 * 3, grid.PADDING + 90 * 7, "resources/white_yellow.png");
+        whitePawnPictures[4].grow(-10, -10);
+        whitePawnPictures[4].draw();
+
+        whitePawnPictures[5] = new Picture(grid.PADDING + 90 * 2, grid.PADDING + 90 * 7, "resources/white_red.png");
+        whitePawnPictures[5].grow(-10, -10);
+        whitePawnPictures[5].draw();
+
+        whitePawnPictures[6] = new Picture(grid.PADDING + 90, grid.PADDING + 90 * 7,"resources/white_green.png");
+        whitePawnPictures[6].grow(-10, -10);
+        whitePawnPictures[6].draw();
+
+        whitePawnPictures[7] = new Picture(grid.PADDING, grid.PADDING + 90 * 7,"resources/white_brown.png");
+        whitePawnPictures[7].grow(-10, -10);
+        whitePawnPictures[7].draw();
+
+    }
+
 
     public void translate(int cols, int rows, Picture pic){
 
