@@ -33,13 +33,13 @@ public class MoveEvents implements MouseHandler {
     private int Yd;
     private int adjust = 24;
     private boolean movable;
-    private boolean firstMove = true;
+    private boolean firstMoveCheck;
 
 
     @Override
     public void mouseClicked(MouseEvent mouseEvent) {
 
-        if (firstMove) {
+        if (!firstMoveCheck) {
             if (firstClick) {
                 System.out.println("1");
                 Xi = (int) (mouseEvent.getX() - game.grid.PADDING) / game.grid.CELL_SIZE;
@@ -57,11 +57,10 @@ public class MoveEvents implements MouseHandler {
                 Xd = Xf - Xi;
                 Yd = Yf - Yi;
 
-                game.player1.firstMove(Xi, Yi, Xi, Xf);
+                firstMoveCheck = game.player1.firstMove(Xi, Yi, Xf, Yf);
 
                 firstClick = true;
 
-                firstMove = false;
             }
         } else {
             System.out.println("4");

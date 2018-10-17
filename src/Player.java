@@ -24,10 +24,10 @@ public class Player {
         if(row2 < 7 && possibleSquares[col2][row2]){
             pawns[col1].getPosition().setCol(col2);
             pawns[col1].getPosition().setRow(row2);
-            game.
-
+            game.blackPawnPictures[col1].translate((col2-col1)*90, (row2-row1)*90);
+            return true;
         }
-        return true;
+        return false;
 
     }
 
@@ -54,7 +54,7 @@ public class Player {
         }
     }
 
-    public void pawnPossibleSquares( Pawn pawn){
+    public void pawnPossibleSquares(Pawn pawn){
         int jAbs;
         boolean iTest;
         boolean jTest;
