@@ -1,3 +1,5 @@
+import java.util.concurrent.TimeUnit;
+
 public class Player {
 
     private String name;
@@ -25,8 +27,14 @@ public class Player {
         if(row2 < 7 && possibleSquares[col2][row2]){
             pawns[col1].getPosition().setCol(col2);
             pawns[col1].getPosition().setRow(row2);
-            game.blackPawnPictures[col1].translate((col2-col1)*90, (row2-row1)*90);
-
+            for(int i = 0; i < row2- row1; i++) {
+                game.getBlackPawnPictures()[col1].translate(((col2 - col1) / (row2 - row1)) * 90, 90);
+                try{
+                    TimeUnit.MILLISECONDS.sleep(600);
+                }catch(InterruptedException e){
+                    System.out.println("NOT");
+                }
+            }
             return true;
         }
         return false;
@@ -90,9 +98,10 @@ public class Player {
                 jTest = (j == pCol || jAbs == i - pRow);
                 if(iTest && jTest && !grid.getSquares()[j][i].isOccupied()){
                     possibleSquares[j][i] = true;
-                }else{
-                    possibleSquares[j][i] = false;
+                    continue;
                 }
+                possibleSquares[j][i] = false;
+
             }
         }
 

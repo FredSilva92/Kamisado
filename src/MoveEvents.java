@@ -20,28 +20,33 @@ public class MoveEvents implements MouseHandler {
 
         m.addEventListener(MouseEventType.MOUSE_CLICKED);
 
-
     }
-
-
-    private boolean firstClick = true;
-    private int Xi;
-    private int Yi;
-    private int Xf;
-    private int Yf;
-    private int Xd;
-    private int Yd;
-    private int adjust = 24;
-    private boolean movable;
-    private boolean firstMoveCheck;
 
 
     @Override
     public void mouseClicked(MouseEvent mouseEvent) {
 
-        moveClick(mouseEvent.getX(), mouseEvent.getY());
+        game.moveClick(mouseEvent.getX(), mouseEvent.getY());
 
     }
+
+    @Override
+    public void mouseMoved(MouseEvent mouseEvent) {
+        System.out.println("moved");
+    }
+
+
+
+
+    /*
+    private boolean firstClick = true;
+    private int Xi;
+    private int Yi;
+    private int Xf;
+    private int Yf;
+    private int adjust = 24;
+    private boolean movable;
+    private boolean firstMoveCheck;
 
 
     private void moveClick(double x, double y){
@@ -90,9 +95,6 @@ public class MoveEvents implements MouseHandler {
             }
         }
     }
+    */
 
-    @Override
-    public void mouseMoved(MouseEvent mouseEvent) {
-        System.out.println("moved");
-    }
 }
