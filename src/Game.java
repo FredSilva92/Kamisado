@@ -55,9 +55,13 @@ public class Game {
     int adjust = 24;
     boolean movable;
     boolean firstMoveCheck = false;
+    boolean winner;
 
     public void moveClick(double x, double y){
 
+        if(winner){
+            return;
+        }
 
         if (!firstMoveCheck) {
             if (firstClick) {
@@ -97,12 +101,22 @@ public class Game {
             if (currentPlayer == 1) {
                 System.out.println("111");
                 if(player1.move(Xf, Yf)) {
+                    if (player1.getCurrentPawn().getPosition().getRow() == 0) {
+                        System.out.println("P1 wins");
+                        winner = true;
+                        return;
+                    }
                     currentPlayer = 2;
                     player2.setCurrentPawn(Xf, Yf);
                     System.out.println("Player2's Turn");
                 }
             } else {
                 if(player2.move(Xf, Yf)) {
+                    if (player2.getCurrentPawn().getPosition().getRow() == (grid.getRows() - 1)){
+                        System.out.println("P2 wins");
+                        winner = true;
+                        return;
+                    }
                     System.out.println("222");
                     currentPlayer = 1;
                     player1.setCurrentPawn(Xf, Yf);
@@ -111,6 +125,9 @@ public class Game {
             }
         }
     }
+
+
+
 
 
 
