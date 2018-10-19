@@ -1,10 +1,14 @@
+import org.academiadecodigo.simplegraphics.pictures.Picture;
+
 public class Pawn {
 
     private Color color;
     private Position position;
+    private Picture picture;
 
-    public Pawn(Color color, int col, int row){
+    public Pawn(Color color, int col, int row, Picture picture){
         this.color = color;
+        this.picture = picture;
         position = new Position(col, row);
     }
 
@@ -14,5 +18,9 @@ public class Pawn {
 
     public Color getColor() {
         return color;
+    }
+
+    public Picture getPicture() {
+        return picture;
     }
 }

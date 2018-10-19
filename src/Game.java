@@ -12,11 +12,13 @@ public class Game {
 
     Game() {
         grid = new Grid(8, 8);
-        player1 = new Player("José", grid, 1, this);
-        player2 = new Player("Alberto", grid, 2, this);
         blackPawnPictures = new Picture[8];
         whitePawnPictures = new Picture[8];
         drawPawns();
+
+        player1 = new Player("Jose", grid, 1, this, whitePawnPictures);
+        player2 = new Player("Alberto", grid, 2, this, blackPawnPictures);
+
 
     }
 
@@ -78,48 +80,38 @@ public class Game {
 
                 if(firstMoveCheck){
                     player2.setCurrentPawn(Xf, Yf);
-                    System.out.println(player2.getCurrentPawn().getColor());
+                    //System.out.println(player2.getCurrentPawn().getColor());
 
                 }
 
 
                 firstClick = true;
 
-                setCurrentPlayer(2);
+                currentPlayer = 2;
 
             }
         }else{
             System.out.println("4");
-            Xi = (int) (x - grid.PADDING) / grid.CELL_SIZE;
-            Yi = (int) (y - grid.PADDING - adjust) / grid.CELL_SIZE;
+            Xf = (int) (x - grid.PADDING) / grid.CELL_SIZE;
+            Yf = (int) (y - grid.PADDING - adjust) / grid.CELL_SIZE;
             if (currentPlayer == 1) {
-                player1.move(Xi, Yi);
-                setCurrentPlayer(2);
+                System.out.println("111");
+                if(player1.move(Xf, Yf)) {
+                    currentPlayer = 2;
+                    player2.setCurrentPawn(Xf, Yf);
+                    System.out.println("Player2's Turn");
+                }
             } else {
-                player2.move(Xi, Yi);
-                setCurrentPlayer(1);
+                if(player2.move(Xf, Yf)) {
+                    System.out.println("222");
+                    currentPlayer = 1;
+                    player1.setCurrentPawn(Xf, Yf);
+                    System.out.println("Player1's Turn");
+                }
             }
         }
     }
 
 
-    public void translate(int cols, int rows, Picture pic){
 
-    }
-
-    public int getCurrentPlayer() {
-        return currentPlayer;
-    }
-
-    public void setCurrentPlayer(int currentPlayer) {
-        this.currentPlayer = currentPlayer;
-    }
-
-    public Picture[] getBlackPawnPictures() {
-        return blackPawnPictures;
-    }
-
-    public Picture[] getWhitePawnPictures() {
-        return whitePawnPictures;
-    }
 }
