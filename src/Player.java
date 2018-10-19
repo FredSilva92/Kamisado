@@ -94,7 +94,11 @@ public class Player {
         for(int i = 0; i < grid.getRows(); i++){
             for(int j = 0; j < grid.getCols(); j++){
                 jAbs = Math.abs(j - pCol);
-                iTest = i > pRow;
+                if(playerNumber == 1) {
+                    iTest = i > pRow;
+                }else{
+                    iTest = i < pRow;
+                }
                 jTest = (j == pCol || jAbs == i - pRow);
                 if(iTest && jTest && !grid.getSquares()[j][i].isOccupied()){
                     possibleSquares[j][i] = true;
