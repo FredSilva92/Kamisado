@@ -23,9 +23,9 @@ public class Grid {
         grid = new Rectangle(PADDING, PADDING, cols * CELL_SIZE, rows * CELL_SIZE);
         board = new Picture(PADDING, PADDING, "resources/cut_board_814x816.png");
 
-        //grid.draw();
+        grid.draw();
 
-        board.draw();
+        //board.draw();
     }
 
     public int getRows() {
@@ -88,5 +88,6 @@ public class Grid {
             System.out.println("\n");
         }
     }
+
 
 }

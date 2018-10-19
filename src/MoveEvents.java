@@ -26,7 +26,7 @@ public class MoveEvents implements MouseHandler {
     @Override
     public void mouseClicked(MouseEvent mouseEvent) {
 
-        game.moveClick(mouseEvent.getX(), mouseEvent.getY());
+        //game.moveClick(mouseEvent.getX(), mouseEvent.getY());
 
     }
 

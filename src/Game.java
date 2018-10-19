@@ -11,13 +11,17 @@ public class Game {
     private Picture[] whitePawnPictures;
 
     Game() {
+
         grid = new Grid(8, 8);
+        menu();
+
         blackPawnPictures = new Picture[8];
         whitePawnPictures = new Picture[8];
-        drawPawns();
+        //drawPawns();
 
         player1 = new Player("Jose", grid, 1, this, whitePawnPictures);
         player2 = new Player("Alberto", grid, 2, this, blackPawnPictures);
+
 
 
     }
@@ -26,6 +30,25 @@ public class Game {
 
 
     }
+
+    public void menu(){
+        Picture background = new Picture(0 , 0, "resources/Kamisado.jpg");
+        background.draw();
+
+        double colStart = (grid.getCols()*grid.CELL_SIZE) * 0.20;
+        double rowStart = (grid.getRows()*grid.CELL_SIZE) * 0.75;
+        Picture start = new Picture(colStart, rowStart, "resources/Play.png");
+        start.draw();
+
+        double colRules = (grid.getCols()*grid.CELL_SIZE) * 0.55;
+        double rowRules = (grid.getRows()*grid.CELL_SIZE) * 0.75;
+        Picture rules = new Picture(colRules, rowRules, "resources/Rules.png");
+        rules.draw();
+
+        System.out.println(grid.PADDING);
+
+    }
+
 
 
     private void drawPawns() {
