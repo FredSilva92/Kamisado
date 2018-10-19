@@ -62,7 +62,7 @@ public class Game {
                 System.out.println("1");
                 Xi = (int) (x - grid.PADDING) / grid.CELL_SIZE;
                 Yi = (int) (y - grid.PADDING - adjust) / grid.CELL_SIZE;
-                if (Yi == 0) {
+                if (Yi == 7) {
                     System.out.println("2");
                     firstClick = false;
                 }
@@ -119,5 +119,7 @@ public class Game {
         return blackPawnPictures;
     }
 
-
+    public Picture[] getWhitePawnPictures() {
+        return whitePawnPictures;
+    }
 }
