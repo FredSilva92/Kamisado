@@ -79,6 +79,7 @@ public class Game {
         double rowTower = (grid.getRows()*grid.CELL_SIZE)*0.66;
         Picture tower = new Picture(grid.PADDING * grid.CELL_SIZE, grid.PADDING + rowTower, "resources/chinese_tower.jpg");
         tower.draw();
+
     }
 
 
