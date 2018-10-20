@@ -23,13 +23,14 @@ public class MoveEvents implements MouseHandler {
     }
 
     boolean onMenu = true;
+    boolean onRules = true;
 
     @Override
     public void mouseClicked(MouseEvent mouseEvent) {
 
-        if(onMenu){
-            if(mouseEvent.getX() > game.getStart().getX() && mouseEvent.getX() < game.getStart().getX() + game.getStart().getWidth()
-                && mouseEvent.getY() > game.getStart().getY() && mouseEvent.getY() < game.getStart().getY() + game.getStart().getHeight()){
+        if(onMenu) {
+            if (mouseEvent.getX() > game.getStart().getX() && mouseEvent.getX() < game.getStart().getX() + game.getStart().getWidth()
+                    && mouseEvent.getY() > game.getStart().getY() && mouseEvent.getY() < game.getStart().getY() + game.getStart().getHeight()) {
 
                 System.out.println("here?");
 
@@ -39,12 +40,27 @@ public class MoveEvents implements MouseHandler {
             }
 
 
+            else if (mouseEvent.getX() > game.getRules().getX() && mouseEvent.getX() < game.getRules().getX() + game.getRules().getWidth()
+                    && mouseEvent.getY() > game.getRules().getY() && mouseEvent.getY() < game.getRules().getY() + game.getRules().getHeight()) {
+                game.rulesMenu();
+                onMenu = false;
+                onRules = true;
+            }
             return;
         }
 
+        if (onRules){
+        if (mouseEvent.getX() > -1 && mouseEvent.getY()> -1){
+            game.menu();
+            onMenu = true;
+            onRules = false;
+        }
+        return;
+    }
+
         game.moveClick(mouseEvent.getX(), mouseEvent.getY());
 
-    }
+}
 
     @Override
     public void mouseMoved(MouseEvent mouseEvent) {
