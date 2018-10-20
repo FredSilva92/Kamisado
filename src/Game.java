@@ -5,7 +5,11 @@ public class Game {
     private Player player1;
     private Player player2;
     private Grid grid;
-    int currentPlayer = 1;
+    private int currentPlayer = 1;
+
+    private Picture background;
+    private Picture start;
+    private Picture rules;
 
     private Picture[] blackPawnPictures;
     private Picture[] whitePawnPictures;
@@ -17,7 +21,9 @@ public class Game {
 
         blackPawnPictures = new Picture[8];
         whitePawnPictures = new Picture[8];
-        //drawPawns();
+
+        createPawns();
+
 
         player1 = new Player("Jose", grid, 1, this, whitePawnPictures);
         player2 = new Player("Alberto", grid, 2, this, blackPawnPictures);
@@ -28,30 +34,42 @@ public class Game {
 
     public void start() {
 
+        background.delete();
+        start.delete();
+        rules.delete();
+
+        grid.getRectangle().draw();
+        grid.getBoard().draw();
+
+        for(int i = 0; i < blackPawnPictures.length; i++){
+            whitePawnPictures[i].draw();
+            blackPawnPictures[i].draw();
+        }
+
 
     }
 
     public void menu(){
-        Picture background = new Picture(0 , 0, "resources/Kamisado.jpg");
+        background = new Picture(0 , 0, "resources/Kamisado.jpg");
+        background.grow(-100,-100);
         background.draw();
 
         double colStart = (grid.getCols()*grid.CELL_SIZE) * 0.20;
         double rowStart = (grid.getRows()*grid.CELL_SIZE) * 0.75;
-        Picture start = new Picture(colStart, rowStart, "resources/Play.png");
+        start = new Picture(colStart, rowStart, "resources/Play.png");
         start.draw();
 
         double colRules = (grid.getCols()*grid.CELL_SIZE) * 0.55;
         double rowRules = (grid.getRows()*grid.CELL_SIZE) * 0.75;
-        Picture rules = new Picture(colRules, rowRules, "resources/Rules.png");
+        rules = new Picture(colRules, rowRules, "resources/Rules.png");
         rules.draw();
 
-        System.out.println(grid.PADDING);
 
     }
 
 
 
-    private void drawPawns() {
+    private void createPawns() {
         String pathBlack = "resources/black_";
         String pathWhite = "resources/white_";
         String[] paths = {"orange.png", "blue.png", "purple.png", "pink.png", "yellow.png", "red.png", "green.png", "brown.png",};
@@ -60,11 +78,9 @@ public class Game {
 
             blackPawnPictures[i] = new Picture(grid.PADDING + grid.CELL_SIZE * i, grid.PADDING, pathBlack + paths[i]);
             blackPawnPictures[i].grow(-10, -10);
-            blackPawnPictures[i].draw();
 
             whitePawnPictures[i] = new Picture(grid.PADDING + grid.CELL_SIZE * i, grid.PADDING + grid.CELL_SIZE * 7, pathWhite + paths[7 - i]);
             whitePawnPictures[i].grow(-10, -10);
-            whitePawnPictures[i].draw();
         }
     }
 
@@ -149,9 +165,11 @@ public class Game {
         }
     }
 
+    public Picture getRules() {
+        return rules;
+    }
 
-
-
-
-
+    public Picture getStart() {
+        return start;
+    }
 }

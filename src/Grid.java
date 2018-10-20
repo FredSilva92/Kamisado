@@ -10,7 +10,7 @@ public class Grid {
     public final int PADDING = 10;
     public final int CELL_SIZE = 90;
 
-    private Rectangle grid;
+    private Rectangle rectangle;
     private Picture board;
 
     public Grid(int cols, int rows){
@@ -20,12 +20,12 @@ public class Grid {
         squares = createSquares(squares);
         showSquares();
 
-        grid = new Rectangle(PADDING, PADDING, cols * CELL_SIZE, rows * CELL_SIZE);
+        rectangle = new Rectangle(PADDING, PADDING, cols * CELL_SIZE, rows * CELL_SIZE);
         board = new Picture(PADDING, PADDING, "resources/cut_board_814x816.png");
+    }
 
-        grid.draw();
-
-        //board.draw();
+    public Rectangle getRectangle() {
+        return rectangle;
     }
 
     public int getRows() {
@@ -38,6 +38,10 @@ public class Grid {
 
     public Square[][] getSquares() {
         return squares;
+    }
+
+    public Picture getBoard() {
+        return board;
     }
 
     private Square[][] createSquares(Square[][] tempSquares){

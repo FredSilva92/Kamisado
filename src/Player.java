@@ -30,9 +30,10 @@ public class Player {
             if (row2 > 0 && possibleSquares[col2][row2]) {
                 pawns[col1].getPosition().setCol(col2);
                 pawns[col1].getPosition().setRow(row2);
-                pawns[col1].getPicture().translate((col2 - col1) * 90, (row2 - row1) * 90);
+                System.out.println(col2 + " " + col1 + " " + row2 + " " + row1);
                 grid.getSquares()[col2][row2].setOccupied(true);
                 grid.getSquares()[col1][row1].setOccupied(false);
+                pawns[col1].getPicture().translate((col2 - col1) * 90, (row2 - row1) * 90);
 
                 return true;
             }

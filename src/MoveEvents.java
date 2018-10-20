@@ -22,9 +22,24 @@ public class MoveEvents implements MouseHandler {
 
     }
 
+    boolean onMenu = true;
 
     @Override
     public void mouseClicked(MouseEvent mouseEvent) {
+
+        if(onMenu){
+            if(mouseEvent.getX() > game.getStart().getX() && mouseEvent.getX() < game.getStart().getX() + game.getStart().getWidth()
+                && mouseEvent.getY() > game.getStart().getY() && mouseEvent.getY() < game.getStart().getY() + game.getStart().getHeight()){
+
+                System.out.println("here?");
+
+                game.start();
+                onMenu = false;
+
+            }
+
+            return;
+        }
 
         game.moveClick(mouseEvent.getX(), mouseEvent.getY());
 
