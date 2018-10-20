@@ -14,6 +14,8 @@ public class Game {
     private Picture dragon = new Picture();
     private Picture winnerImage = new Picture();
     private Picture victoryImage = new Picture();
+    private Picture p1DragonWinner = new Picture();
+    private Picture p2DragonWinner = new Picture();
 
     private Picture[] blackPawnPictures;
     private Picture[] whitePawnPictures;
@@ -27,9 +29,6 @@ public class Game {
         whitePawnPictures = new Picture[8];
 
         createPawnPictures();
-
-        //player1 = new Player("Jose", grid, 1, this, whitePawnPictures);
-        //player2 = new Player("Alberto", grid, 2, this, blackPawnPictures);
     }
 
     public void start() {
@@ -47,7 +46,7 @@ public class Game {
         player1.createPawns(whitePawnPictures);
         player2.createPawns(blackPawnPictures);
 
-        for(int i = 0; i < player1.getPawns().length; i++){
+        for (int i = 0; i < player1.getPawns().length; i++) {
             player1.getPawns()[i].getPosition().setCol(i);
             player1.getPawns()[i].getPosition().setRow(player1.getPawns().length - 1);
             player2.getPawns()[i].getPosition().setCol(i);
@@ -57,7 +56,6 @@ public class Game {
         for (int i = 0; i < blackPawnPictures.length; i++) {
             whitePawnPictures[i].draw();
             blackPawnPictures[i].draw();
-            //blackPawnPictures[i].
         }
     }
 
@@ -116,19 +114,22 @@ public class Game {
     public void p1winner() {
 
         double colWinner = (grid.getCols() * grid.CELL_SIZE) * 0.25;
-        double rowWinner = (grid.getRows() * grid.CELL_SIZE) * 0.25;
+        double rowWinner = (grid.getRows() * grid.CELL_SIZE) * 0.15;
         winnerImage = new Picture(colWinner, rowWinner, "resources/p1.png");
         victoryImage = new Picture(colWinner, rowWinner + winnerImage.getHeight(), "resources/Victory.png");
+        p1DragonWinner = new Picture(colWinner * 0.75, rowWinner + winnerImage.getHeight() + victoryImage.getHeight(), "resources/dragon_red_499x250.png");
         winnerImage.draw();
         victoryImage.draw();
+        p1DragonWinner.draw();
     }
 
     public void p2winner() {
 
         double colWinner = (grid.getCols() * grid.CELL_SIZE) * 0.25;
-        double rowWinner = (grid.getRows() * grid.CELL_SIZE) * 0.25;
-        winnerImage = new Picture(colWinner, rowWinner, "resources/p2.png");
+        double rowWinner = (grid.getRows() * grid.CELL_SIZE) * 0.15;
+        winnerImage = new Picture(colWinner*1.1, rowWinner, "resources/p2.png");
         victoryImage = new Picture(colWinner, rowWinner + winnerImage.getHeight(), "resources/Victory.png");
+        //p2DragonWinner;
         winnerImage.draw();
         victoryImage.draw();
     }
@@ -168,15 +169,10 @@ public class Game {
 
                 if (firstMoveCheck) {
                     player2.setCurrentPawn(Xf, Yf);
-                    //System.out.println(player2.getCurrentPawn().getColor());
-
                 }
 
-
                 firstClick = true;
-
                 currentPlayer = 2;
-
             }
         } else {
             System.out.println("4");
@@ -197,7 +193,7 @@ public class Game {
                     player2.setCurrentPawn(Xf, Yf);
                     System.out.println("Player2's Turn");
 
-                    if(player2.testBlock()){
+                    if (player2.testBlock()) {
                         currentPlayer = 1;
                         int xBlocked = player2.getCurrentPawn().getPosition().getCol();
                         int yBlocked = player2.getCurrentPawn().getPosition().getRow();
@@ -209,11 +205,11 @@ public class Game {
                 }
             } else {
                 System.out.println("222");
-                if(player2.move(Xf, Yf)) {
+                if (player2.move(Xf, Yf)) {
 
                     System.out.println("passou");
 
-                    if (player2.getCurrentPawn().getPosition().getRow() == (grid.getRows() - 1)){
+                    if (player2.getCurrentPawn().getPosition().getRow() == (grid.getRows() - 1)) {
                         System.out.println("P2 wins");
                         winner = true;
                         p2winner();
@@ -225,7 +221,7 @@ public class Game {
                     player1.setCurrentPawn(Xf, Yf);
                     System.out.println("Player1's Turn");
 
-                    if(player1.testBlock()){
+                    if (player1.testBlock()) {
                         currentPlayer = 2;
                         int xBlocked = player1.getCurrentPawn().getPosition().getCol();
                         int yBlocked = player1.getCurrentPawn().getPosition().getRow();
@@ -239,11 +235,12 @@ public class Game {
         }
     }
 
-    public void resetMenu(){
+    public void resetMenu() {
         grid.getRectangle().delete();
         grid.getBoard().delete();
         winnerImage.delete();
         victoryImage.delete();
+        p1DragonWinner.delete();
 
         for (int i = 0; i < blackPawnPictures.length; i++) {
             player1.getPawns()[i].getPicture().delete();
@@ -259,9 +256,9 @@ public class Game {
         return;
     }
 
-    private void clearGrid(){
-        for(int i = 0; i < grid.getRows(); i++){
-            for(int j = 0; j < grid.getCols(); j++){
+    private void clearGrid() {
+        for (int i = 0; i < grid.getRows(); i++) {
+            for (int j = 0; j < grid.getCols(); j++) {
                 grid.getSquares()[i][j].setOccupied(false);
             }
         }
