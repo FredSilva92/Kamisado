@@ -23,7 +23,7 @@ public class MoveEvents implements MouseHandler {
     }
 
     boolean onMenu = true;
-    boolean onRules = true;
+    boolean onRules = false;
 
     @Override
     public void mouseClicked(MouseEvent mouseEvent) {
@@ -50,13 +50,13 @@ public class MoveEvents implements MouseHandler {
         }
 
         if (onRules){
-        if (mouseEvent.getX() > -1 && mouseEvent.getY()> -1){
-            game.menu();
-            onMenu = true;
-            onRules = false;
+            if (mouseEvent.getX() > -1 && mouseEvent.getY()> -1){
+                game.menu();
+                onMenu = true;
+                onRules = false;
+            }
+            return;
         }
-        return;
-    }
 
         game.moveClick(mouseEvent.getX(), mouseEvent.getY());
 
