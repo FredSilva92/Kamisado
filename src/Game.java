@@ -12,6 +12,8 @@ public class Game {
     private Picture rules;
     private Picture rulesText = new Picture();
     private Picture dragon = new Picture();
+    private Picture winnerImage = new Picture();
+    private Picture victoryImage = new Picture();
 
     private Picture[] blackPawnPictures;
     private Picture[] whitePawnPictures;
@@ -24,10 +26,10 @@ public class Game {
         blackPawnPictures = new Picture[8];
         whitePawnPictures = new Picture[8];
 
-        createPawns();
+        createPawnPictures();
 
-        player1 = new Player("Jose", grid, 1, this, whitePawnPictures);
-        player2 = new Player("Alberto", grid, 2, this, blackPawnPictures);
+        //player1 = new Player("Jose", grid, 1, this, whitePawnPictures);
+        //player2 = new Player("Alberto", grid, 2, this, blackPawnPictures);
     }
 
     public void start() {
@@ -39,9 +41,23 @@ public class Game {
         grid.getRectangle().draw();
         grid.getBoard().draw();
 
+        createPawnPictures();
+        player1 = new Player("Jose", grid, 1, this, whitePawnPictures);
+        player2 = new Player("Alberto", grid, 2, this, blackPawnPictures);
+        player1.createPawns(whitePawnPictures);
+        player2.createPawns(blackPawnPictures);
+
+        for(int i = 0; i < player1.getPawns().length; i++){
+            player1.getPawns()[i].getPosition().setCol(i);
+            player1.getPawns()[i].getPosition().setRow(player1.getPawns().length - 1);
+            player2.getPawns()[i].getPosition().setCol(i);
+            player2.getPawns()[i].getPosition().setRow(0);
+        }
+
         for (int i = 0; i < blackPawnPictures.length; i++) {
             whitePawnPictures[i].draw();
             blackPawnPictures[i].draw();
+            //blackPawnPictures[i].
         }
     }
 
@@ -82,7 +98,7 @@ public class Game {
     }
 
 
-    private void createPawns() {
+    private void createPawnPictures() {
         String pathBlack = "resources/black_";
         String pathWhite = "resources/white_";
         String[] paths = {"orange.png", "blue.png", "purple.png", "pink.png", "yellow.png", "red.png", "green.png", "brown.png",};
@@ -101,20 +117,20 @@ public class Game {
 
         double colWinner = (grid.getCols() * grid.CELL_SIZE) * 0.25;
         double rowWinner = (grid.getRows() * grid.CELL_SIZE) * 0.25;
-        Picture winner = new Picture(colWinner, rowWinner, "resources/p1.png");
-        Picture victory = new Picture(colWinner, rowWinner + winner.getHeight(), "resources/Victory.png");
-        winner.draw();
-        victory.draw();
+        winnerImage = new Picture(colWinner, rowWinner, "resources/p1.png");
+        victoryImage = new Picture(colWinner, rowWinner + winnerImage.getHeight(), "resources/Victory.png");
+        winnerImage.draw();
+        victoryImage.draw();
     }
 
     public void p2winner() {
 
         double colWinner = (grid.getCols() * grid.CELL_SIZE) * 0.25;
         double rowWinner = (grid.getRows() * grid.CELL_SIZE) * 0.25;
-        Picture winner = new Picture(colWinner, rowWinner, "resources/p2.png");
-        Picture victory = new Picture(colWinner, rowWinner + winner.getHeight(), "resources/Victory.png");
-        winner.draw();
-        victory.draw();
+        winnerImage = new Picture(colWinner, rowWinner, "resources/p2.png");
+        victoryImage = new Picture(colWinner, rowWinner + winnerImage.getHeight(), "resources/Victory.png");
+        winnerImage.draw();
+        victoryImage.draw();
     }
 
 
@@ -130,9 +146,6 @@ public class Game {
 
     public void moveClick(double x, double y) {
 
-        if (winner) {
-            return;
-        }
 
         if (!firstMoveCheck) {
             if (firstClick) {
@@ -198,6 +211,8 @@ public class Game {
                 System.out.println("222");
                 if(player2.move(Xf, Yf)) {
 
+                    System.out.println("passou");
+
                     if (player2.getCurrentPawn().getPosition().getRow() == (grid.getRows() - 1)){
                         System.out.println("P2 wins");
                         winner = true;
@@ -224,11 +239,43 @@ public class Game {
         }
     }
 
+    public void resetMenu(){
+        grid.getRectangle().delete();
+        grid.getBoard().delete();
+        winnerImage.delete();
+        victoryImage.delete();
+
+        for (int i = 0; i < blackPawnPictures.length; i++) {
+            player1.getPawns()[i].getPicture().delete();
+            player2.getPawns()[i].getPicture().delete();
+        }
+
+        clearGrid();
+        menu();
+
+        firstMoveCheck = false;
+        winner = false;
+
+        return;
+    }
+
+    private void clearGrid(){
+        for(int i = 0; i < grid.getRows(); i++){
+            for(int j = 0; j < grid.getCols(); j++){
+                grid.getSquares()[i][j].setOccupied(false);
+            }
+        }
+    }
+
     public Picture getRules() {
         return rules;
     }
 
     public Picture getStart() {
         return start;
+    }
+
+    public boolean isWinner() {
+        return winner;
     }
 }

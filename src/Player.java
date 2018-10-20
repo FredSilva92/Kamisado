@@ -87,7 +87,11 @@ public class Player {
 
         } else {
 
+            System.out.println("__1");
+
             if (possibleSquares[col2][row2]) {
+
+                System.out.println("__2");
                 if (col1 == col2) {
                     for (int i = 0; i < row2 - row1; i++) {
                         if (grid.getSquares()[col1][row1 + i + 1].isOccupied()) {
@@ -96,8 +100,10 @@ public class Player {
                     }
                 }
                 if (col1 < col2) {
+                    System.out.println("__3");
                     for (int i = 0; i < row2 - row1; i++) {
                         if (grid.getSquares()[col1 + i + 1][row1 + i + 1].isOccupied()) {
+                            System.out.println("__4");
                             return false;
                         }
                     }
@@ -123,7 +129,7 @@ public class Player {
     }
 
 
-    private void createPawns(Picture[] pawnPictures) {
+    public void createPawns(Picture[] pawnPictures) {
         for (int i = 0; i < Color.values().length; i++) {
             int col = i;
             int row;
@@ -220,4 +226,7 @@ public class Player {
         return currentPawn;
     }
 
+    public Pawn[] getPawns() {
+        return pawns;
+    }
 }

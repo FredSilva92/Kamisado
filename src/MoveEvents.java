@@ -28,6 +28,12 @@ public class MoveEvents implements MouseHandler {
     @Override
     public void mouseClicked(MouseEvent mouseEvent) {
 
+        if(game.isWinner()){
+            System.out.println("Winner");
+            game.resetMenu();
+            onMenu = true;
+            //return;
+        }
         if(onMenu) {
             if (mouseEvent.getX() > game.getStart().getX() && mouseEvent.getX() < game.getStart().getX() + game.getStart().getWidth()
                     && mouseEvent.getY() > game.getStart().getY() && mouseEvent.getY() < game.getStart().getY() + game.getStart().getHeight()) {
@@ -58,6 +64,7 @@ public class MoveEvents implements MouseHandler {
             return;
         }
 
+
         game.moveClick(mouseEvent.getX(), mouseEvent.getY());
 
 }
@@ -66,7 +73,6 @@ public class MoveEvents implements MouseHandler {
     public void mouseMoved(MouseEvent mouseEvent) {
         System.out.println("moved");
     }
-
 
 
 
