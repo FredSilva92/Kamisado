@@ -16,6 +16,7 @@ public class Game {
     private Picture victoryImage = new Picture();
     private Picture p1DragonWinner = new Picture();
     private Picture p2DragonWinner = new Picture();
+    private Picture credits = new Picture();
 
     private Picture[] blackPawnPictures;
     private Picture[] whitePawnPictures;
@@ -64,9 +65,14 @@ public class Game {
         rulesText.delete();
         dragon.delete();
 
-        background = new Picture(0, 0, "resources/Kamisado.jpg");
+        background = new Picture(-25, 0, "resources/Kamisado.jpg");
         background.grow(-100, -100);
         background.draw();
+
+        double colCredits = (grid.getCols() * grid.CELL_SIZE) * 0.20;
+        double rowCredits = (grid.getRows() * grid.CELL_SIZE) * 0.05;
+        credits = new Picture(colCredits, rowCredits, "resources/authors.png");
+        credits.draw();
 
         double colStart = (grid.getCols() * grid.CELL_SIZE) * 0.20;
         double rowStart = (grid.getRows() * grid.CELL_SIZE) * 0.75;
