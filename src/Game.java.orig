@@ -172,7 +172,12 @@ public class Game {
 
             if (currentPlayer == 1) {
                 System.out.println("111");
+<<<<<<< HEAD
+                if(player1.move(Xf, Yf)) {
+
+=======
                 if (player1.move(Xf, Yf)) {
+>>>>>>> d87b29666d4d1ad0e3f1d545ab00ffc31ffd81bc
                     if (player1.getCurrentPawn().getPosition().getRow() == 0) {
                         System.out.println("P1 wins");
                         winner = true;
@@ -195,10 +200,15 @@ public class Game {
 
                 }
             } else {
+<<<<<<< HEAD
                 System.out.println("222");
                 if(player2.move(Xf, Yf)) {
 
                     if (player2.getCurrentPawn().getPosition().getRow() == (grid.getRows() - 1)){
+=======
+                if (player2.move(Xf, Yf)) {
+                    if (player2.getCurrentPawn().getPosition().getRow() == (grid.getRows() - 1)) {
+>>>>>>> d87b29666d4d1ad0e3f1d545ab00ffc31ffd81bc
                         System.out.println("P2 wins");
                         winner = true;
                         p2winner();
@@ -223,6 +233,8 @@ public class Game {
             }
         }
     }
+
+
 
     public Picture getRules() {
         return rules;
