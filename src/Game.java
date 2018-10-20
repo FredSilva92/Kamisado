@@ -17,7 +17,8 @@ public class Game {
     Game() {
 
         grid = new Grid(8, 8);
-        menu();
+        rules();
+        //menu();
 
         blackPawnPictures = new Picture[8];
         whitePawnPictures = new Picture[8];
@@ -46,7 +47,6 @@ public class Game {
             blackPawnPictures[i].draw();
         }
 
-
     }
 
     public void menu(){
@@ -65,6 +65,20 @@ public class Game {
         rules.draw();
 
 
+    }
+
+    public void rules(){
+        Picture dragon = new Picture(0, 0, "resources/dragon.jpg");
+        dragon.grow((grid.getCols()*grid.CELL_SIZE)*0.0000001, (grid.getRows()*grid.CELL_SIZE)*0.0000001);
+        dragon.draw();
+
+        double rowRules = (grid.getRows()* grid.CELL_SIZE) * 0.33;
+        Picture text = new Picture(grid.PADDING * grid.CELL_SIZE, rowRules+grid.PADDING, "resources/rules_description.png");
+        text.draw();
+
+        double rowTower = (grid.getRows()*grid.CELL_SIZE)*0.66;
+        Picture tower = new Picture(grid.PADDING * grid.CELL_SIZE, grid.PADDING + rowTower, "resources/chinese_tower.jpg");
+        tower.draw();
     }
 
 
