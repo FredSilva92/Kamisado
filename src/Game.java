@@ -137,33 +137,61 @@ public class Game {
             System.out.println("4");
             Xf = (int) (x - grid.PADDING) / grid.CELL_SIZE;
             Yf = (int) (y - grid.PADDING - adjust) / grid.CELL_SIZE;
+
             if (currentPlayer == 1) {
                 System.out.println("111");
                 if(player1.move(Xf, Yf)) {
+
                     if (player1.getCurrentPawn().getPosition().getRow() == 0) {
                         System.out.println("P1 wins");
                         winner = true;
                         return;
                     }
+
                     currentPlayer = 2;
                     player2.setCurrentPawn(Xf, Yf);
                     System.out.println("Player2's Turn");
+
+                    if(player2.testBlock()){
+                        currentPlayer = 1;
+                        int xBlocked = player2.getCurrentPawn().getPosition().getCol();
+                        int yBlocked = player2.getCurrentPawn().getPosition().getRow();
+                        player1.setCurrentPawn(xBlocked, yBlocked);
+                        System.out.println("Player1's Turn");
+                    }
+
+
                 }
             } else {
+                System.out.println("222");
                 if(player2.move(Xf, Yf)) {
+
                     if (player2.getCurrentPawn().getPosition().getRow() == (grid.getRows() - 1)){
                         System.out.println("P2 wins");
                         winner = true;
                         return;
                     }
-                    System.out.println("222");
+
+
                     currentPlayer = 1;
                     player1.setCurrentPawn(Xf, Yf);
                     System.out.println("Player1's Turn");
+
+                    if(player1.testBlock()){
+                        currentPlayer = 2;
+                        int xBlocked = player1.getCurrentPawn().getPosition().getCol();
+                        int yBlocked = player1.getCurrentPawn().getPosition().getRow();
+                        player2.setCurrentPawn(xBlocked, yBlocked);
+                        System.out.println("Player2's Turn");
+                    }
+
+
                 }
             }
         }
     }
+
+
 
     public Picture getRules() {
         return rules;

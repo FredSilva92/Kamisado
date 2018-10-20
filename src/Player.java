@@ -54,12 +54,6 @@ public class Player {
 
             if (possibleSquares[col2][row2]) {
 
-                /*
-                if (grid.getSquares()[col1 - 1][row1 - 1].isOccupied() && grid.getSquares()[col1][row1 - 1].isOccupied() && grid.getSquares()[col1 + 1][row1 - 1].isOccupied()) {
-                    return true;
-                }
-                */
-
                 if (col1 == col2) {
                     for (int i = 0; i < row1 - row2; i++) {
                         if (grid.getSquares()[col1][row1 - i - 1].isOccupied()) {
@@ -92,7 +86,6 @@ public class Player {
             return false;
 
         } else {
-
 
             if (possibleSquares[col2][row2]) {
                 if (col1 == col2) {
@@ -176,6 +169,36 @@ public class Player {
             }
         }
 
+    }
+
+    public boolean testBlock(){
+
+        int x = currentPawn.getPosition().getCol();
+        int y = currentPawn.getPosition().getRow();
+
+        boolean upLeft;
+        boolean upCenter;
+        boolean upRight;
+        int inv = 1;
+
+        if(playerNumber == 2){
+            inv = - 1;
+        }
+        if(x == 0){
+            upLeft = true;
+        }else{
+            upLeft = grid.getSquares()[x-1][y-inv].isOccupied();
+        }
+        if(x == 7){
+            upRight = true;
+        }else{
+            upRight = grid.getSquares()[x+1][y-inv].isOccupied();
+        }
+        upCenter = grid.getSquares()[x][y-inv].isOccupied();
+        if(upRight && upCenter && upLeft){
+            return true;
+        }
+        return false;
     }
 
 
