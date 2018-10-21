@@ -3,18 +3,13 @@ import java.io.File;
 
 public class Sound {
 
-    private String audioFilePath;
+    private String path;
     private Clip audioClip;
     private AudioInputStream audioStrmObj;
 
     public Sound(String path){
         try {
-            audioFilePath = path;
-            File clipFile = new File(audioFilePath); // path to your clip
-            audioStrmObj = AudioSystem.getAudioInputStream(clipFile);
-            AudioFormat format = audioStrmObj.getFormat();
-            DataLine.Info info = new DataLine.Info(Clip.class, format);
-            audioClip = (Clip) AudioSystem.getLine(info);
+            this.path = path;
         }
         catch (Exception ex){
             ex.getMessage();
@@ -24,6 +19,12 @@ public class Sound {
 
     public void open(){
         try {
+            File clipFile = new File(this.path); // path to your clip
+            audioStrmObj = AudioSystem.getAudioInputStream(clipFile);
+            AudioFormat format = audioStrmObj.getFormat();
+            DataLine.Info info = new DataLine.Info(Clip.class, format);
+            audioClip = (Clip) AudioSystem.getLine(info);
+
             audioClip.open(audioStrmObj);
             audioClip.start();
         }

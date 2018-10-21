@@ -1,8 +1,5 @@
 import org.academiadecodigo.simplegraphics.pictures.Picture;
 
-import javax.sound.sampled.LineUnavailableException;
-import javax.sound.sampled.UnsupportedAudioFileException;
-import java.io.IOException;
 
 public class Game {
 
@@ -21,8 +18,11 @@ public class Game {
     private Picture p1DragonWinner = new Picture();
     private Picture p2DragonWinner = new Picture();
     private Picture credits = new Picture();
-    private Sound introSound = new Sound("resources/intro_music.wav");
-    private Sound rulesSound = new Sound("resources/rules_music.wav");
+    private Sound soundIntro = new Sound("resources/intro_music.wav");
+    private Sound soundRules = new Sound("resources/rules_music.wav");
+    private Sound soundWin = new Sound("resources/winner_music_40sec.wav");
+    private Sound soundRight = new Sound("resources/right_move_music_3sec");
+    private Sound soundWrong = new Sound("resources/wrong_move");
 
     private Picture[] blackPawnPictures;
     private Picture[] whitePawnPictures;
@@ -68,8 +68,8 @@ public class Game {
 
     public void menu(){
 
-        rulesSound.close();
-        introSound.open();
+        soundRules.close();
+        soundIntro.open();
         rulesText.delete();
         dragon.delete();
 
@@ -96,8 +96,8 @@ public class Game {
 
     public void rulesMenu(){
 
-        introSound.close();
-        rulesSound.open();
+        soundIntro.close();
+        soundRules.open();
 
         background.delete();
         credits.delete();
@@ -132,6 +132,9 @@ public class Game {
 
     public void p1winner() {
 
+        soundIntro.close();
+        soundWin.open();
+
         double colWinner = (grid.getCols() * grid.CELL_SIZE) * 0.25;
         double rowWinner = (grid.getRows() * grid.CELL_SIZE) * 0.15;
         winnerImage = new Picture(colWinner, rowWinner, "resources/p1.png");
@@ -140,9 +143,14 @@ public class Game {
         winnerImage.draw();
         victoryImage.draw();
         p1DragonWinner.draw();
+
+        soundWin.open();
     }
 
     public void p2winner() {
+
+        soundIntro.close();
+        soundWin.open();
 
         double colWinner = (grid.getCols() * grid.CELL_SIZE) * 0.25;
         double rowWinner = (grid.getRows() * grid.CELL_SIZE) * 0.15;
@@ -152,6 +160,8 @@ public class Game {
         winnerImage.draw();
         victoryImage.draw();
         p2DragonWinner.draw();
+
+        soundWin.open();
     }
 
 
@@ -161,7 +171,6 @@ public class Game {
     int Xf;
     int Yf;
     int adjust = 24;
-    boolean movable;
     boolean firstMoveCheck = false;
     boolean winner;
 
@@ -202,6 +211,9 @@ public class Game {
             if (currentPlayer == 1) {
                 System.out.println("111");
                 if (player1.move(Xf, Yf)) {
+
+                    soundRight.open();
+
                     if (player1.getCurrentPawn().getPosition().getRow() == 0) {
                         System.out.println("P1 wins");
                         winner = true;
@@ -226,6 +238,8 @@ public class Game {
             } else {
                 System.out.println("222");
                 if (player2.move(Xf, Yf)) {
+
+                    soundRight.open();
 
                     System.out.println("passou");
 
@@ -256,11 +270,16 @@ public class Game {
     }
 
     public void resetMenu(){
+
+        soundWin.close();
+        soundIntro.open();
+
         grid.getRectangle().delete();
         grid.getBoard().delete();
         winnerImage.delete();
         victoryImage.delete();
         p1DragonWinner.delete();
+        p2DragonWinner.delete();
 
         for (int i = 0; i < blackPawnPictures.length; i++) {
             player1.getPawns()[i].getPicture().delete();
