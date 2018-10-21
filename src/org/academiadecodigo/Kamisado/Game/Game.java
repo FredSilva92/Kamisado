@@ -1,3 +1,7 @@
+package org.academiadecodigo.Kamisado.Game;
+
+import org.academiadecodigo.Kamisado.Grid.Grid;
+import org.academiadecodigo.Kamisado.Player.Player;
 import org.academiadecodigo.simplegraphics.pictures.Picture;
 
 public class Game {

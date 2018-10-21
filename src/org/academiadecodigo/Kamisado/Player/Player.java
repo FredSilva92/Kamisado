@@ -1,6 +1,9 @@
-import org.academiadecodigo.simplegraphics.pictures.Picture;
+package org.academiadecodigo.Kamisado.Player;
 
-import java.util.concurrent.TimeUnit;
+import org.academiadecodigo.Kamisado.Color;
+import org.academiadecodigo.Kamisado.Game.Game;
+import org.academiadecodigo.Kamisado.Grid.Grid;
+import org.academiadecodigo.simplegraphics.pictures.Picture;
 
 public class Player {
 

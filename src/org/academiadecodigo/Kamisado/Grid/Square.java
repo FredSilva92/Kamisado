@@ -1,3 +1,7 @@
+package org.academiadecodigo.Kamisado.Grid;
+
+import org.academiadecodigo.Kamisado.Color;
+
 public class Square {
 
     private Color color;

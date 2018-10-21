@@ -1,3 +1,5 @@
+package org.academiadecodigo.Kamisado;
+
 public enum Color {
     ORANGE,
     BLUE,

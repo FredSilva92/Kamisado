@@ -1,3 +1,6 @@
+package org.academiadecodigo.Kamisado.Player;
+
+import org.academiadecodigo.Kamisado.Color;
 import org.academiadecodigo.simplegraphics.pictures.Picture;
 
 public class Pawn {

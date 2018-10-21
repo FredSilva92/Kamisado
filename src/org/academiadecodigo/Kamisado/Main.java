@@ -1,3 +1,7 @@
+package org.academiadecodigo.Kamisado;
+
+import org.academiadecodigo.Kamisado.Game.Game;
+import org.academiadecodigo.Kamisado.Game.MoveEvents;
 
 public class Main {
 

@@ -1,3 +1,5 @@
+package org.academiadecodigo.Kamisado.Player;
+
 public class Position {
 
     private int col;

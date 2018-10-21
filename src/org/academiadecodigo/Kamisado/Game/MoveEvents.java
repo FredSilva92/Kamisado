@@ -1,43 +1,42 @@
+package org.academiadecodigo.Kamisado.Game;
+
+import org.academiadecodigo.Kamisado.Game.Game;
 import org.academiadecodigo.simplegraphics.mouse.MouseEventType;
 import org.academiadecodigo.simplegraphics.mouse.MouseHandler;
 import org.academiadecodigo.simplegraphics.mouse.MouseEvent;
 
 import org.academiadecodigo.simplegraphics.mouse.Mouse;
 
-import javax.sound.sampled.LineUnavailableException;
-import java.io.IOException;
-
 public class MoveEvents implements MouseHandler {
 
 
-    Game game;
+    private Game game;
+    private boolean onMenu;
+    private boolean onRules;
 
     public MoveEvents(Game game) {
         this.game = game;
+        onMenu = true;
+        onRules = false;
     }
 
 
-    public void test(){
+    public void test() {
 
         Mouse m = new Mouse(this);
-
         m.addEventListener(MouseEventType.MOUSE_CLICKED);
 
     }
 
-    boolean onMenu = true;
-    boolean onRules = false;
-
     @Override
     public void mouseClicked(MouseEvent mouseEvent) {
 
-        if(game.isWinner()){
-            System.out.println("Winner");
-            game.resetMenu();
+        if (game.isWinner()) {
 
+            game.resetMenu();
             onMenu = true;
         }
-        if(onMenu) {
+        if (onMenu) {
             if (mouseEvent.getX() > game.getStart().getX() && mouseEvent.getX() < game.getStart().getX() + game.getStart().getWidth()
                     && mouseEvent.getY() > game.getStart().getY() && mouseEvent.getY() < game.getStart().getY() + game.getStart().getHeight()) {
 
@@ -46,10 +45,7 @@ public class MoveEvents implements MouseHandler {
                 game.start();
                 onMenu = false;
 
-            }
-
-
-            else if (mouseEvent.getX() > game.getRules().getX() && mouseEvent.getX() < game.getRules().getX() + game.getRules().getWidth()
+            } else if (mouseEvent.getX() > game.getRules().getX() && mouseEvent.getX() < game.getRules().getX() + game.getRules().getWidth()
                     && mouseEvent.getY() > game.getRules().getY() && mouseEvent.getY() < game.getRules().getY() + game.getRules().getHeight()) {
                 game.rulesMenu();
 
@@ -59,8 +55,8 @@ public class MoveEvents implements MouseHandler {
             return;
         }
 
-        if (onRules){
-            if (mouseEvent.getX() > -1 && mouseEvent.getY()> -1){
+        if (onRules) {
+            if (mouseEvent.getX() > -1 && mouseEvent.getY() > -1) {
                 game.menu();
 
                 onMenu = true;
@@ -71,12 +67,10 @@ public class MoveEvents implements MouseHandler {
 
 
         game.moveClick(mouseEvent.getX(), mouseEvent.getY());
-
-}
+    }
 
     @Override
     public void mouseMoved(MouseEvent mouseEvent) {
-        System.out.println("moved");
     }
 
 }

@@ -1,3 +1,5 @@
+package org.academiadecodigo.Kamisado.Game;
+
 import javax.sound.sampled.*;
 import java.io.File;
 

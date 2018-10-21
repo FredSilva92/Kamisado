@@ -1,3 +1,6 @@
+package org.academiadecodigo.Kamisado.Grid;
+
+import org.academiadecodigo.Kamisado.Color;
 import org.academiadecodigo.simplegraphics.graphics.Rectangle;
 import org.academiadecodigo.simplegraphics.pictures.Picture;
 
