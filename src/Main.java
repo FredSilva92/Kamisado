@@ -8,10 +8,6 @@ public class Main {
         MoveEvents moveEvents = new MoveEvents(g);
         moveEvents.test();
 
-
-
-
-
     }
 
 }

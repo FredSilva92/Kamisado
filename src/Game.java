@@ -76,8 +76,8 @@ public class Game {
         dragon.delete();
 
 
-        background = new Picture(-25, 0, "resources/Kamisado.jpg");
-        background.grow(-100, -100);
+        background = new Picture(-20, 0, "resources/Kamisado.jpg");
+        background.grow(-50, -100);
         background.draw();
 
         double colCredits = (grid.getCols() * grid.CELL_SIZE) * 0.20;
@@ -85,7 +85,7 @@ public class Game {
         credits = new Picture(colCredits, rowCredits, "resources/authors.png");
         credits.draw();
 
-        double colStart = (grid.getCols() * grid.CELL_SIZE) * 0.20;
+        double colStart = (grid.getCols() * grid.CELL_SIZE) * 0.17;
         double rowStart = (grid.getRows() * grid.CELL_SIZE) * 0.75;
         start = new Picture(colStart, rowStart, "resources/Play.png");
         start.draw();
