@@ -1,5 +1,9 @@
 import org.academiadecodigo.simplegraphics.pictures.Picture;
 
+import javax.sound.sampled.LineUnavailableException;
+import javax.sound.sampled.UnsupportedAudioFileException;
+import java.io.IOException;
+
 public class Game {
 
     private Player player1;
@@ -17,11 +21,13 @@ public class Game {
     private Picture p1DragonWinner = new Picture();
     private Picture p2DragonWinner = new Picture();
     private Picture credits = new Picture();
+    private Sound introSound = new Sound("resources/intro_music.wav");
+    private Sound rulesSound = new Sound("resources/rules_music.wav");
 
     private Picture[] blackPawnPictures;
     private Picture[] whitePawnPictures;
 
-    Game() {
+    public Game() {
 
         grid = new Grid(8, 8);
         menu();
@@ -60,10 +66,13 @@ public class Game {
         }
     }
 
-    public void menu() {
+    public void menu(){
 
+        rulesSound.close();
+        introSound.open();
         rulesText.delete();
         dragon.delete();
+
 
         background = new Picture(-25, 0, "resources/Kamisado.jpg");
         background.grow(-100, -100);
@@ -85,9 +94,13 @@ public class Game {
         rules.draw();
     }
 
-    public void rulesMenu() {
+    public void rulesMenu(){
+
+        introSound.close();
+        rulesSound.open();
 
         background.delete();
+        credits.delete();
         start.delete();
         rules.delete();
 
@@ -133,11 +146,12 @@ public class Game {
 
         double colWinner = (grid.getCols() * grid.CELL_SIZE) * 0.25;
         double rowWinner = (grid.getRows() * grid.CELL_SIZE) * 0.15;
-        winnerImage = new Picture(colWinner*1.1, rowWinner, "resources/p2.png");
+        winnerImage = new Picture(colWinner * 1.05, rowWinner, "resources/p2.png");
         victoryImage = new Picture(colWinner, rowWinner + winnerImage.getHeight(), "resources/Victory.png");
-        //p2DragonWinner;
+        p2DragonWinner = new Picture(colWinner * 0.75, rowWinner + winnerImage.getHeight() + victoryImage.getHeight(), "resources/dragon_black_499x250.png");
         winnerImage.draw();
         victoryImage.draw();
+        p2DragonWinner.draw();
     }
 
 
@@ -241,7 +255,7 @@ public class Game {
         }
     }
 
-    public void resetMenu() {
+    public void resetMenu(){
         grid.getRectangle().delete();
         grid.getBoard().delete();
         winnerImage.delete();

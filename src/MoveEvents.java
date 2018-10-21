@@ -4,6 +4,9 @@ import org.academiadecodigo.simplegraphics.mouse.MouseEvent;
 
 import org.academiadecodigo.simplegraphics.mouse.Mouse;
 
+import javax.sound.sampled.LineUnavailableException;
+import java.io.IOException;
+
 public class MoveEvents implements MouseHandler {
 
 
@@ -14,7 +17,7 @@ public class MoveEvents implements MouseHandler {
     }
 
 
-    public void test() throws InterruptedException {
+    public void test(){
 
         Mouse m = new Mouse(this);
 
@@ -31,8 +34,8 @@ public class MoveEvents implements MouseHandler {
         if(game.isWinner()){
             System.out.println("Winner");
             game.resetMenu();
+
             onMenu = true;
-            //return;
         }
         if(onMenu) {
             if (mouseEvent.getX() > game.getStart().getX() && mouseEvent.getX() < game.getStart().getX() + game.getStart().getWidth()
@@ -49,6 +52,7 @@ public class MoveEvents implements MouseHandler {
             else if (mouseEvent.getX() > game.getRules().getX() && mouseEvent.getX() < game.getRules().getX() + game.getRules().getWidth()
                     && mouseEvent.getY() > game.getRules().getY() && mouseEvent.getY() < game.getRules().getY() + game.getRules().getHeight()) {
                 game.rulesMenu();
+
                 onMenu = false;
                 onRules = true;
             }
@@ -58,6 +62,7 @@ public class MoveEvents implements MouseHandler {
         if (onRules){
             if (mouseEvent.getX() > -1 && mouseEvent.getY()> -1){
                 game.menu();
+
                 onMenu = true;
                 onRules = false;
             }
