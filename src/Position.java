@@ -3,7 +3,7 @@ public class Position {
     private int col;
     private int row;
 
-    public Position(int col, int row){
+    public Position(int col, int row) {
         this.col = col;
         this.row = row;
     }
@@ -24,4 +24,5 @@ public class Position {
     public int getRow() {
         return row;
     }
+
 }

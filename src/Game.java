@@ -22,6 +22,7 @@ public class Game {
     private Sound soundWin = new Sound("resources/winner_music_40sec.wav");
     private Sound soundRight = new Sound("resources/right_move_music_3sec.wav");
     private Sound soundWrong = new Sound("resources/wrong_move.wav");
+    private Picture frame = new Picture();
 
     private Picture[] blackPawnPictures;
     private Picture[] whitePawnPictures;
@@ -183,6 +184,9 @@ public class Game {
                 if (Yi == 7) {
                     System.out.println("2");
                     firstClick = false;
+                    frame = new Picture(grid.PADDING + Xi * grid.CELL_SIZE + 5, grid.PADDING + Yi * grid.CELL_SIZE + 5, "resources/ball.png");
+                    frame.draw();
+
                 }
                 else {
                     soundWrong.open();
@@ -200,6 +204,9 @@ public class Game {
                 if (firstMoveCheck) {
                     System.out.println("Entrou em first move check");
                     player2.setCurrentPawn(Xf, Yf);
+                    frame.delete();
+                    frame = new Picture(grid.PADDING + player2.getCurrentPawn().getPosition().getCol() * grid.CELL_SIZE + 5, grid.PADDING + player2.getCurrentPawn().getPosition().getRow() * grid.CELL_SIZE + 5, "resources/ball.png");
+                    frame.draw();
                     soundRight.open();
                 }
                 else if(!firstMoveCheck){
@@ -211,79 +218,103 @@ public class Game {
                 currentPlayer = 2;
             }
         } else {
-            System.out.println("4");
             Xf = (int) (x - grid.PADDING) / grid.CELL_SIZE;
             Yf = (int) (y - grid.PADDING - adjust) / grid.CELL_SIZE;
 
             if (currentPlayer == 1) {
-                System.out.println("111");
-                if (player1.move(Xf, Yf)) {
-                    System.out.println("P1 right move");
-
-                    soundRight.open();
-
-                    if (player1.getCurrentPawn().getPosition().getRow() == 0) {
-                        System.out.println("P1 wins");
-                        winner = true;
-                        p1winner();
-                        return;
-                    }
-
-                    currentPlayer = 2;
-                    player2.setCurrentPawn(Xf, Yf);
-                    System.out.println("Player2's Turn");
-
-                    if (player2.testBlock()) {
-                        currentPlayer = 1;
-                        int xBlocked = player2.getCurrentPawn().getPosition().getCol();
-                        int yBlocked = player2.getCurrentPawn().getPosition().getRow();
-                        player1.setCurrentPawn(xBlocked, yBlocked);
-                        System.out.println("Player1's Turn");
-                    }
-
-
-                }
-                else if(!player1.move(Xf,Yf)){
-                    System.out.println("P1 Wrong move");
-                    soundWrong.open();
-                }
-            } else {
-                System.out.println("222");
-                if (player2.move(Xf, Yf)) {
-
-                    soundRight.open();
-
-                    System.out.println("passou");
-
-                    if (player2.getCurrentPawn().getPosition().getRow() == (grid.getRows() - 1)) {
-                        System.out.println("P2 wins");
-                        winner = true;
-                        p2winner();
-                        return;
-                    }
-
-
-                    currentPlayer = 1;
-                    player1.setCurrentPawn(Xf, Yf);
-                    System.out.println("Player1's Turn");
-
-                    if (player1.testBlock()) {
-                        currentPlayer = 2;
-                        int xBlocked = player1.getCurrentPawn().getPosition().getCol();
-                        int yBlocked = player1.getCurrentPawn().getPosition().getRow();
-                        player2.setCurrentPawn(xBlocked, yBlocked);
-                        System.out.println("Player2's Turn");
-                    }
-
-
-                }
-                else if(!player2.move(Xf,Yf)){
-                    System.out.println("P2 wrong move");
-                    soundWrong.open();
-                }
+                p1Move();
+                return;
             }
+            p2Move();
         }
     }
+
+
+    private void p1Move(){
+        System.out.println("111");
+        if (player1.move(Xf, Yf)) {
+            System.out.println("P1 right move");
+
+            soundRight.open();
+
+            if (player1.getCurrentPawn().getPosition().getRow() == 0) {
+                System.out.println("P1 wins");
+                winner = true;
+                p1winner();
+                return;
+            }
+
+            currentPlayer = 2;
+            player2.setCurrentPawn(Xf, Yf);
+            frame.delete();
+            frame = new Picture(grid.PADDING + player2.getCurrentPawn().getPosition().getCol() * grid.CELL_SIZE + 5, grid.PADDING + player2.getCurrentPawn().getPosition().getRow() * grid.CELL_SIZE + 5, "resources/ball.png");
+            frame.draw();
+            System.out.println("Player2's Turn");
+
+            if (player2.testBlock()) {
+                currentPlayer = 1;
+                int xBlocked = player2.getCurrentPawn().getPosition().getCol();
+                int yBlocked = player2.getCurrentPawn().getPosition().getRow();
+                player1.setCurrentPawn(xBlocked, yBlocked);
+                frame.delete();
+                frame = new Picture(grid.PADDING + player1.getCurrentPawn().getPosition().getCol() * grid.CELL_SIZE + 5, grid.PADDING + player1.getCurrentPawn().getPosition().getRow() * grid.CELL_SIZE + 5, "resources/ball.png");
+                frame.draw();
+                System.out.println("Player1's Turn");
+            }
+
+
+        }
+        else if(!player1.move(Xf,Yf)){
+            System.out.println("P1 Wrong move");
+            soundWrong.open();
+        }
+    }
+
+    private void p2Move(){
+        System.out.println("222");
+        if (player2.move(Xf, Yf)) {
+
+            soundRight.open();
+
+            System.out.println("passou");
+
+            if (player2.getCurrentPawn().getPosition().getRow() == (grid.getRows() - 1)) {
+                System.out.println("P2 wins");
+                winner = true;
+                p2winner();
+                return;
+            }
+
+
+            currentPlayer = 1;
+            player1.setCurrentPawn(Xf, Yf);
+            frame.delete();
+            frame = new Picture(grid.PADDING + player1.getCurrentPawn().getPosition().getCol() * grid.CELL_SIZE + 5, grid.PADDING + player1.getCurrentPawn().getPosition().getRow() * grid.CELL_SIZE + 5, "resources/ball.png");
+            frame.draw();
+            System.out.println("Player1's Turn");
+
+            if (player1.testBlock()) {
+                currentPlayer = 2;
+                int xBlocked = player1.getCurrentPawn().getPosition().getCol();
+                int yBlocked = player1.getCurrentPawn().getPosition().getRow();
+                player2.setCurrentPawn(xBlocked, yBlocked);
+                frame.delete();
+                frame = new Picture(grid.PADDING + player2.getCurrentPawn().getPosition().getCol() * grid.CELL_SIZE + 5, grid.PADDING + player2.getCurrentPawn().getPosition().getRow() * grid.CELL_SIZE + 5, "resources/ball.png");
+                frame.draw();
+                System.out.println("Player2's Turn");
+            }
+
+
+        }
+        else if(!player2.move(Xf,Yf)){
+            System.out.println("P2 wrong move");
+            soundWrong.open();
+        }
+    }
+
+
+
+
 
     public void resetMenu(){
 
