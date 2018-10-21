@@ -1,6 +1,5 @@
 import org.academiadecodigo.simplegraphics.pictures.Picture;
 
-
 public class Game {
 
     private Player player1;
@@ -21,8 +20,8 @@ public class Game {
     private Sound soundIntro = new Sound("resources/intro_music.wav");
     private Sound soundRules = new Sound("resources/rules_music.wav");
     private Sound soundWin = new Sound("resources/winner_music_40sec.wav");
-    private Sound soundRight = new Sound("resources/right_move_music_3sec");
-    private Sound soundWrong = new Sound("resources/wrong_move");
+    private Sound soundRight = new Sound("resources/right_move_music_3sec.wav");
+    private Sound soundWrong = new Sound("resources/wrong_move.wav");
 
     private Picture[] blackPawnPictures;
     private Picture[] whitePawnPictures;
@@ -40,6 +39,7 @@ public class Game {
 
     public void start() {
 
+        soundIntro.close();
         background.delete();
         start.delete();
         rules.delete();
@@ -184,6 +184,9 @@ public class Game {
                     System.out.println("2");
                     firstClick = false;
                 }
+                else {
+                    soundWrong.open();
+                }
 
 
             } else {
@@ -195,7 +198,13 @@ public class Game {
                 firstMoveCheck = player1.firstMove(Xi, Yi, Xf, Yf);
 
                 if (firstMoveCheck) {
+                    System.out.println("Entrou em first move check");
                     player2.setCurrentPawn(Xf, Yf);
+                    soundRight.open();
+                }
+                else if(!firstMoveCheck){
+                    System.out.println("Entrou em wrong sound");
+                    soundWrong.open();
                 }
 
                 firstClick = true;
@@ -209,6 +218,7 @@ public class Game {
             if (currentPlayer == 1) {
                 System.out.println("111");
                 if (player1.move(Xf, Yf)) {
+                    System.out.println("P1 right move");
 
                     soundRight.open();
 
@@ -232,6 +242,10 @@ public class Game {
                     }
 
 
+                }
+                else if(!player1.move(Xf,Yf)){
+                    System.out.println("P1 Wrong move");
+                    soundWrong.open();
                 }
             } else {
                 System.out.println("222");
@@ -262,6 +276,10 @@ public class Game {
                     }
 
 
+                }
+                else if(!player2.move(Xf,Yf)){
+                    System.out.println("P2 wrong move");
+                    soundWrong.open();
                 }
             }
         }
