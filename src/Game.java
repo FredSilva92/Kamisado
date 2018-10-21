@@ -43,6 +43,7 @@ public class Game {
         background.delete();
         start.delete();
         rules.delete();
+        credits.delete();
 
         grid.getRectangle().draw();
         grid.getBoard().draw();
@@ -68,6 +69,7 @@ public class Game {
 
     public void menu(){
 
+        soundWin.close();
         soundRules.close();
         soundIntro.open();
         rulesText.delete();
@@ -143,8 +145,6 @@ public class Game {
         winnerImage.draw();
         victoryImage.draw();
         p1DragonWinner.draw();
-
-        soundWin.open();
     }
 
     public void p2winner() {
@@ -160,8 +160,6 @@ public class Game {
         winnerImage.draw();
         victoryImage.draw();
         p2DragonWinner.draw();
-
-        soundWin.open();
     }
 
 
@@ -270,9 +268,6 @@ public class Game {
     }
 
     public void resetMenu(){
-
-        soundWin.close();
-        soundIntro.open();
 
         grid.getRectangle().delete();
         grid.getBoard().delete();
