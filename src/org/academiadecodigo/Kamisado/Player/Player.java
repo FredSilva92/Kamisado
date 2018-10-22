@@ -7,7 +7,6 @@ import org.academiadecodigo.simplegraphics.pictures.Picture;
 
 public class Player {
 
-    private String name;
     private Pawn[] pawns;
     private int playerNumber;
     private Grid grid;
@@ -15,10 +14,9 @@ public class Player {
     private Game game;
     private Pawn currentPawn;
 
-    public Player(String name, Grid grid, int playerNumber, Game game, Picture[] pawnPictures) {
+    public Player(Grid grid, int playerNumber, Game game, Picture[] pawnPictures) {
         this.playerNumber = playerNumber;
         this.grid = grid;
-        this.name = name;
         pawns = new Pawn[8];
         createPawns(pawnPictures);
         possibleSquares = new boolean[grid.getCols()][grid.getRows()];
@@ -33,7 +31,6 @@ public class Player {
             if (row2 > 0 && possibleSquares[col2][row2]) {
                 pawns[col1].getPosition().setCol(col2);
                 pawns[col1].getPosition().setRow(row2);
-                System.out.println(col2 + " " + col1 + " " + row2 + " " + row1);
                 grid.getSquares()[col2][row2].setOccupied(true);
                 grid.getSquares()[col1][row1].setOccupied(false);
                 pawns[col1].getPicture().translate((col2 - col1) * 90, (row2 - row1) * 90);
@@ -95,12 +92,8 @@ public class Player {
 
     public boolean p2move(int col1, int row1, int col2, int row2) {
 
-
-        System.out.println("__1");
-
         if (possibleSquares[col2][row2]) {
 
-            System.out.println("__2");
             if (col1 == col2) {
                 for (int i = 0; i < row2 - row1; i++) {
                     if (grid.getSquares()[col1][row1 + i + 1].isOccupied()) {
@@ -109,10 +102,8 @@ public class Player {
                 }
             }
             if (col1 < col2) {
-                System.out.println("__3");
                 for (int i = 0; i < row2 - row1; i++) {
                     if (grid.getSquares()[col1 + i + 1][row1 + i + 1].isOccupied()) {
-                        System.out.println("__4");
                         return false;
                     }
                 }

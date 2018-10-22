@@ -27,26 +27,6 @@ public class Grid {
         board = new Picture(PADDING, PADDING, "resources/cut_board_814x816.png");
     }
 
-    public Rectangle getRectangle() {
-        return rectangle;
-    }
-
-    public int getRows() {
-        return rows;
-    }
-
-    public int getCols() {
-        return cols;
-    }
-
-    public Square[][] getSquares() {
-        return squares;
-    }
-
-    public Picture getBoard() {
-        return board;
-    }
-
     private Square[][] createSquares(Square[][] tempSquares){
         for(int i = 0; i < rows; i++){
             for(int j = 0; j < cols; j++){
@@ -90,11 +70,28 @@ public class Grid {
     private void showSquares(){
         for(int i = 0; i < rows; i++) {
             for (int j = 0; j < cols; j++) {
-                System.out.println(squares[j][i].getColor());
             }
-            System.out.println("\n");
         }
     }
 
+    public Rectangle getRectangle() {
+        return rectangle;
+    }
+
+    public int getRows() {
+        return rows;
+    }
+
+    public int getCols() {
+        return cols;
+    }
+
+    public Square[][] getSquares() {
+        return squares;
+    }
+
+    public Picture getBoard() {
+        return board;
+    }
 
 }
