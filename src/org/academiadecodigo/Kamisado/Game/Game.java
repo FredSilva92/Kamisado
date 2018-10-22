@@ -133,7 +133,7 @@ public class Game {
     private void createPawnPictures() {
         String pathBlack = "resources/black_";
         String pathWhite = "resources/white_";
-        String[] paths = {"orange.png", "blue.png", "purple.png", "pink.png", "yellow.png", "red.png", "green.png", "brown.png",};
+        String[] paths = {"orange.png", "blue.png", "purple.png", "pink.png", "yellow.png", "red.png", "green.png", "brown.png"};
 
         for (int i = 0; i < blackPawnPictures.length; i++) {
 
@@ -233,6 +233,8 @@ public class Game {
     private void p1TestMove(){
         if (player1.move(Xf, Yf)) {
 
+            soundWrong.close();
+            soundRight.close();
             soundRight.open();
 
             if (player1.getCurrentPawn().getPosition().getRow() == 0) {
@@ -267,6 +269,8 @@ public class Game {
     private void p2TestMove(){
         if (player2.move(Xf, Yf)) {
 
+            soundWrong.close();
+            soundRight.close();
             soundRight.open();
 
             if (player2.getCurrentPawn().getPosition().getRow() == (grid.getRows() - 1)) {
@@ -295,6 +299,8 @@ public class Game {
 
         }
         else if(!player2.move(Xf,Yf)){
+            soundRight.close();
+            soundWrong.close();
             soundWrong.open();
         }
     }

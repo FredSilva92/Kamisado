@@ -21,7 +21,6 @@ public class Grid {
         this.rows = rows;
         squares = new Square[cols][rows];
         squares = createSquares(squares);
-        showSquares();
 
         rectangle = new Rectangle(PADDING, PADDING, cols * CELL_SIZE, rows * CELL_SIZE);
         board = new Picture(PADDING, PADDING, "resources/cut_board_814x816.png");
@@ -65,13 +64,6 @@ public class Grid {
             }
         }
         return tempSquares;
-    }
-
-    private void showSquares(){
-        for(int i = 0; i < rows; i++) {
-            for (int j = 0; j < cols; j++) {
-            }
-        }
     }
 
     public Rectangle getRectangle() {
