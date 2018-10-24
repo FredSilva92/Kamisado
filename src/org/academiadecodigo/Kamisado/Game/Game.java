@@ -30,15 +30,18 @@ public class Game {
     private Picture p1DragonWinner = new Picture();
     private Picture p2DragonWinner = new Picture();
     private Picture credits = new Picture();
-    private Sound soundIntro = new Sound("resources/intro_music.wav");
-    private Sound soundRules = new Sound("resources/rules_music.wav");
-    private Sound soundWin = new Sound("resources/winner_music_40sec.wav");
-    private Sound soundRight = new Sound("resources/right_move_music_3sec.wav");
-    private Sound soundWrong = new Sound("resources/wrong_move.wav");
+    private Sound soundIntro = new Sound("/resources/intro_music.wav");
+    private Sound soundRules = new Sound("/resources/rules_music.wav");
+    private Sound soundWin = new Sound("/resources/winner_music_40sec.wav");
+    private Sound soundRight = new Sound("/resources/right_move_music_3sec.wav");
+    private Sound soundWrong = new Sound("/resources/wrong_move.wav");
     private Picture frame = new Picture();
 
     private Picture[] blackPawnPictures;
     private Picture[] whitePawnPictures;
+    private boolean onMenu;
+    private boolean onStart;
+    private boolean onRules;
 
     public Game() {
 
@@ -53,7 +56,10 @@ public class Game {
 
     public void start() {
 
-        soundIntro.close();
+        if (onMenu) {
+            soundIntro.close();
+        }
+
         background.delete();
         start.delete();
         rules.delete();
@@ -78,14 +84,24 @@ public class Game {
         for (int i = 0; i < blackPawnPictures.length; i++) {
             whitePawnPictures[i].draw();
             blackPawnPictures[i].draw();
+
+            onMenu = false;
+            onRules = false;
+            onStart = true;
         }
     }
 
     public void menu(){
 
-        soundWin.close();
-        soundRules.close();
-        soundIntro.open();
+        if (onStart) {
+            soundWin.close();
+        }
+
+        if (onRules) {
+            soundRules.close();
+        }
+
+        soundIntro.play(true);
         rulesText.delete();
         dragon.delete();
 
@@ -108,13 +124,18 @@ public class Game {
         double rowRules = (grid.getRows() * grid.CELL_SIZE) * 0.75;
         rules = new Picture(colRules, rowRules, "resources/Rules.png");
         rules.draw();
+
+        onMenu = true;
+        onRules = false;
+        onStart = false;
     }
 
     public void rulesMenu(){
 
         soundIntro.close();
-        soundRules.open();
 
+
+        soundRules.play(true);
         background.delete();
         credits.delete();
         start.delete();
@@ -127,6 +148,10 @@ public class Game {
         dragon = new Picture(grid.PADDING, rulesText.getHeight(), "resources/dragon.jpg");
         dragon.grow(-100, -120);
         dragon.draw();
+
+        onMenu = false;
+        onRules = true;
+        onStart = false;
 
     }
 
@@ -148,7 +173,7 @@ public class Game {
     private void p1winner() {
 
         soundIntro.close();
-        soundWin.open();
+        soundWin.play(true);
 
         double colWinner = (grid.getCols() * grid.CELL_SIZE) * 0.25;
         double rowWinner = (grid.getRows() * grid.CELL_SIZE) * 0.15;
@@ -163,7 +188,7 @@ public class Game {
     private void p2winner() {
 
         soundIntro.close();
-        soundWin.open();
+        soundWin.play(true);
 
         double colWinner = (grid.getCols() * grid.CELL_SIZE) * 0.25;
         double rowWinner = (grid.getRows() * grid.CELL_SIZE) * 0.15;
@@ -192,7 +217,7 @@ public class Game {
 
                 }
                 else {
-                    soundWrong.open();
+                    soundWrong.play(true);
                 }
 
 
@@ -208,10 +233,10 @@ public class Game {
                     frame.delete();
                     frame = new Picture(grid.PADDING + player2.getCurrentPawn().getPosition().getCol() * grid.CELL_SIZE + 5, grid.PADDING + player2.getCurrentPawn().getPosition().getRow() * grid.CELL_SIZE + 5, "resources/ball.png");
                     frame.draw();
-                    soundRight.open();
+                    soundRight.play(true);
                 }
                 else if(!firstMoveCheck){
-                    soundWrong.open();
+                    soundWrong.play(true);
                 }
 
                 firstClick = true;
@@ -235,7 +260,7 @@ public class Game {
 
             soundWrong.close();
             soundRight.close();
-            soundRight.open();
+            soundRight.play(true);
 
             if (player1.getCurrentPawn().getPosition().getRow() == 0) {
                 winner = true;
@@ -262,7 +287,7 @@ public class Game {
 
         }
         else if(!player1.move(Xf,Yf)){
-            soundWrong.open();
+            soundWrong.play(true);
         }
     }
 
@@ -271,7 +296,7 @@ public class Game {
 
             soundWrong.close();
             soundRight.close();
-            soundRight.open();
+            soundRight.play(true);
 
             if (player2.getCurrentPawn().getPosition().getRow() == (grid.getRows() - 1)) {
                 winner = true;
@@ -301,7 +326,7 @@ public class Game {
         else if(!player2.move(Xf,Yf)){
             soundRight.close();
             soundWrong.close();
-            soundWrong.open();
+            soundWrong.play(true);
         }
     }
 

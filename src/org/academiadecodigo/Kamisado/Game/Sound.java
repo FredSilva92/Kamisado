@@ -2,48 +2,73 @@ package org.academiadecodigo.Kamisado.Game;
 
 import javax.sound.sampled.*;
 import java.io.File;
+import java.io.IOException;
+import java.net.URL;
 
 public class Sound {
 
-    private String path;
-    private Clip audioClip;
-    private AudioInputStream audioStrmObj;
+    private Clip clip;
+    private URL soundURL;
 
-    public Sound(String path){
-        try {
-            this.path = path;
-        }
-        catch (Exception ex){
-            ex.getMessage();
-        }
-
+    public Sound(String path) {
+        initClip(path);
     }
 
-    public void open(){
-        try {
-            File clipFile = new File(this.path); // path to your clip
-            audioStrmObj = AudioSystem.getAudioInputStream(clipFile);
-            AudioFormat format = audioStrmObj.getFormat();
-            DataLine.Info info = new DataLine.Info(Clip.class, format);
-            audioClip = (Clip) AudioSystem.getLine(info);
-
-            audioClip.open(audioStrmObj);
-            audioClip.start();
+    /**
+     * Plays the clip from the point it was stopped or from start if passed with the fromStart argument false or true
+     *
+     * @param fromStart should be true if want to replay the sound from the start or false otherwise
+     */
+    public void play(boolean fromStart) {
+        if (fromStart) {
+            clip.setFramePosition(0);
         }
-        catch (Exception ex){
-            ex.getMessage();
-        }
+        clip.start();
     }
 
-
+    public void stop() {
+        clip.stop();
+    }
 
     public void close() {
+        clip.close();
+    }
+
+    public void loopIndef() {
+        //sets loop points at start and end of track
+        clip.setLoopPoints(0, (int) (getLength() * 0.94));
+        //activates loop
+        clip.loop(Clip.LOOP_CONTINUOUSLY);
+    }
+
+    public void reOpen() {
+        AudioInputStream inputStream = null;
         try {
-            audioClip.close();
-            audioStrmObj.close();
+            inputStream = AudioSystem.getAudioInputStream(soundURL);
+            clip.open(inputStream);
+        } catch (LineUnavailableException | IOException | UnsupportedAudioFileException ex) {
+            System.out.println(ex.getMessage());
         }
-        catch (Exception ex){
-            ex.getMessage();
+    }
+
+    private void initClip(String path) {
+        soundURL = Sound.class.getResource(path); //if loading from jar
+        AudioInputStream inputStream = null;
+        try {
+            if (soundURL == null) {
+                path = path.substring(1);
+                File file = new File(path);
+                soundURL = file.toURI().toURL(); //if executing on intellij
+            }
+            inputStream = AudioSystem.getAudioInputStream(soundURL);
+            clip = AudioSystem.getClip();
+            clip.open(inputStream);
+        } catch (UnsupportedAudioFileException | LineUnavailableException | IOException ex) {
+            System.out.println(ex.getMessage());
         }
+    }
+
+    private int getLength() {
+        return clip.getFrameLength();
     }
 }
